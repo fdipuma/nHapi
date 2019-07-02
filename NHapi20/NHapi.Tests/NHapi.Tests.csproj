@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
+    <noWarn>1591,1572,1573,1574,1587,1570</noWarn>
   </PropertyGroup>
 
   <ItemGroup>

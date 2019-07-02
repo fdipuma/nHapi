@@ -5,6 +5,7 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <AssemblyOriginatorKeyFile>..\NHapi.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <noWarn>1591,1572,1573,1574,1587,1570</noWarn>
   </PropertyGroup>
 
   <ItemGroup>
