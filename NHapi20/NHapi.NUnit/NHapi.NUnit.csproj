@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ModelGenerator\ModelGenerator.csproj" />
     <ProjectReference Include="..\nHapi.Base\NHapi.Base.csproj" />
     <ProjectReference Include="..\NHapi.Model.V21\NHapi.Model.V21.csproj" />
     <ProjectReference Include="..\NHapi.Model.V22\NHapi.Model.V22.csproj" />

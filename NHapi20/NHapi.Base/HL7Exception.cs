@@ -262,21 +262,6 @@ namespace NHapi.Base
 			Terser.Set(errorSegment, 1, rep, 4, 1, Convert.ToString(errCode));
 			Terser.Set(errorSegment, 1, rep, 4, 3, "hl70357");
 			Terser.Set(errorSegment, 1, rep, 4, 5, Message);
-
-			//try to get error condition text
-			try
-			{
-				String desc = TableRepository.Instance.getDescription(357, Convert.ToString(errCode));
-				Terser.Set(errorSegment, 1, rep, 4, 2, desc);
-			}
-			catch (LookupException e)
-			{
-				ourLog.Debug("Warning: LookupException getting error condition text (are we connected to a TableRepository?)", e);
-			}
-			catch (InvalidOperationException e)
-			{
-				ourLog.Debug("Warning: InvalidOperationException getting error condition text (are we connected to a TableRepository? Is a valid ConnectionString configured?)", e);
-			}
 		}
 
 		static HL7Exception()

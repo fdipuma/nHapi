@@ -11,12 +11,12 @@ namespace NHapi.Base.Log
 	{
 		public static ILog GetLog(Type classType)
 		{
-			return new EntLibLogger();
+			return new TraceLogger();
 		}
 
 		public static ILog GetLog(String name)
 		{
-			return new EntLibLogger();
+			return new TraceLogger();
 		}
 	}
 }

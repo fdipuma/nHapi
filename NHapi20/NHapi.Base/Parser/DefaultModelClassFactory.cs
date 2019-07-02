@@ -5,12 +5,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
-using NHapi.Base;
 using NHapi.Base.Model;
-using NHapi.Base.SourceGeneration;
 using NHapi.Base.Log;
-using NHapi.Base.Model.Configuration;
 
 namespace NHapi.Base.Parser
 {
@@ -23,11 +21,9 @@ namespace NHapi.Base.Parser
 	/// </version>
 	public class DefaultModelClassFactory : IModelClassFactory
 	{
-		private static readonly object _lockObject = new object();
-		private static readonly IHapiLog log;
-		private const String CUSTOM_PACKAGES_RESOURCE_NAME_TEMPLATE = "custom_packages/{0}";
-		private static Hashtable packages = null;
-		private static bool _isLoadingPackages = false;
+		private static readonly object LockObject = new object();
+		private static readonly IHapiLog Log;
+		private static Dictionary<string, List<string>> _globalPackages = null;
 
 		/// <summary> <p>Attempts to return the message class corresponding to the given name, by 
 		/// searching through default and user-defined (as per PackageList()) packages. 
@@ -57,14 +53,14 @@ namespace NHapi.Base.Parser
 		/// </param>
 		/// <returns> corresponding message subclass if found; GenericMessage otherwise
 		/// </returns>
-		public virtual Type GetMessageClass(String theName, String theVersion, bool isExplicit)
+		public virtual Type GetMessageClass(string theName, string theVersion, bool isExplicit)
 		{
 			Type mc = null;
 			if (!isExplicit)
 			{
 				theName = ParserBase.GetMessageStructureForEvent(theName, theVersion);
 			}
-			mc = findClass(theName, theVersion, ClassType.Message);
+			mc = FindClass(theName, theVersion, ClassType.Message);
 			if (mc == null)
 				mc = GenericMessage.getGenericMessageClass(theVersion);
 			return mc;
@@ -76,9 +72,9 @@ namespace NHapi.Base.Parser
 		/// <param name="theName"></param>
 		/// <param name="theVersion"></param>
 		/// <returns></returns>
-		public virtual Type GetGroupClass(String theName, String theVersion)
+		public virtual Type GetGroupClass(string theName, string theVersion)
 		{
-			return findClass(theName, theVersion, ClassType.Group);
+			return FindClass(theName, theVersion, ClassType.Group);
 		}
 
 		/// <summary>
@@ -87,9 +83,9 @@ namespace NHapi.Base.Parser
 		/// <param name="theName"></param>
 		/// <param name="theVersion"></param>
 		/// <returns></returns>
-		public virtual Type GetSegmentClass(String theName, String theVersion)
+		public virtual Type GetSegmentClass(string theName, string theVersion)
 		{
-			return findClass(theName, theVersion, ClassType.Segment);
+			return FindClass(theName, theVersion, ClassType.Segment);
 		}
 
 		/// <summary>
@@ -98,9 +94,9 @@ namespace NHapi.Base.Parser
 		/// <param name="theName"></param>
 		/// <param name="theVersion"></param>
 		/// <returns></returns>
-		public virtual Type GetTypeClass(String theName, String theVersion)
+		public virtual Type GetTypeClass(string theName, string theVersion)
 		{
-			return findClass(theName, theVersion, ClassType.Datatype);
+			return FindClass(theName, theVersion, ClassType.Datatype);
 		}
 
 		/// <summary> <p>Lists all the packages (user-definable) where classes for standard and custom 
@@ -138,48 +134,38 @@ namespace NHapi.Base.Parser
 		/// classes representing parts of a message are referenced explicitly in the code for the message 
 		/// class, rather than being looked up (using findMessageClass() ) based on the String value of MSH-9.<p>  
 		/// </summary>
-		public static List<string> PackageList(String version)
+		public IEnumerable<string> PackageList(string version)
 		{
 			//load package lists if necessary ... 
 
-			if (packages == null)
+			if (_globalPackages == null)
 			{
-				lock (_lockObject)
+				lock (LockObject)
 				{
-					if (packages == null)
+					if (_globalPackages == null)
 					{
-						_isLoadingPackages = true;
-						IList<Hl7Package> packageList = PackageManager.Instance.GetAllPackages();
-
-						packages = new Hashtable(packageList.Count);
-						foreach (Hl7Package package in packageList)
-						{
-							AddPackage(packages, package);
-						}
-						_isLoadingPackages = false;
+						_globalPackages = PackageManager.Instance
+							.GetAllPackages()
+							.GroupBy(p => p.Version)
+							.ToDictionary(g => g.Key, g => g.Select(p => p.PackageName).ToList());
 					}
 				}
 			}
-			///There is a bug when you start loading the hashtable, another thread can start to access the table before it finishes loading.  
-			if (_isLoadingPackages)
-			{
-				Thread.Sleep(100);
-			}
-			if (packages[version] == null)
-				throw new Exception(string.Format("Package '{0}' could not be found", version));
 
-			return (List<string>) packages[version];
+			if (!_globalPackages.TryGetValue(version, out var global))
+				throw new Exception($"Package '{version}' could not be found");
+			
+			return global;
 		}
 
 		private static void AddPackage(Hashtable packages, Hl7Package package)
 		{
 			if (packages[package.Version] == null)
 				packages[package.Version] = new List<string>();
-			List<string> versions = (List<string>) packages[package.Version];
+			List<string> versions = (List<string>)packages[package.Version];
 			versions.Add(package.PackageName);
 		}
-
-
+		
 		/// <summary> Finds a message or segment class by name and version.</summary>
 		/// <param name="name">the segment or message structure name 
 		/// </param>
@@ -187,7 +173,7 @@ namespace NHapi.Base.Parser
 		/// </param>
 		/// <param name="type">'message', 'group', 'segment', or 'datatype'  
 		/// </param>
-		private static Type findClass(String name, String version, ClassType type)
+		private Type FindClass(string name, string version, ClassType type)
 		{
 			if (ParserBase.ValidVersion(version) == false)
 			{
@@ -195,11 +181,11 @@ namespace NHapi.Base.Parser
 			}
 
 			//get list of packages to search for the corresponding message class 
-			List<string> packages = PackageList(version);
+			var packages = PackageList(version).ToList();
 
 			//get subpackage for component type
 			string typeString = type.ToString();
-			String subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
+			string subpackage = typeString.Substring(0, 1).ToUpper() + typeString.Substring(1);
 
 			//try to load class from each package
 			Type compClass = null;
@@ -208,20 +194,20 @@ namespace NHapi.Base.Parser
 			{
 				try
 				{
-					String p = packages[c];
+					string p = packages[c];
 					if (!p.EndsWith("."))
 						p = p + ".";
-					String classNameToTry = p + subpackage + "." + name;
+					string classNameToTry = p + subpackage + "." + name;
 
 					classNameToTry = AddAssemblyName(p, classNameToTry);
-					if (log.DebugEnabled)
+					if (Log.DebugEnabled)
 					{
-						log.Debug("Trying to load: " + classNameToTry);
+						Log.Debug("Trying to load: " + classNameToTry);
 					}
 					compClass = Type.GetType(classNameToTry);
-					if (log.DebugEnabled)
+					if (Log.DebugEnabled)
 					{
-						log.Debug("Loaded: " + classNameToTry + " class: " + compClass);
+						Log.Debug("Loaded: " + classNameToTry + " class: " + compClass);
 					}
 				}
 				catch (Exception)
@@ -239,7 +225,7 @@ namespace NHapi.Base.Parser
 		/// <param name="p"></param>
 		/// <param name="classNameToTry"></param>
 		/// <returns>Assembly name qualified name</returns>
-		private static String AddAssemblyName(String p, String classNameToTry)
+		private static string AddAssemblyName(string p, string classNameToTry)
 		{
 			// TODO: pull this information out of the config file
 			// have to add assembly name since models are broken out into separate assemblies
@@ -253,7 +239,7 @@ namespace NHapi.Base.Parser
 
 		static DefaultModelClassFactory()
 		{
-			log = HapiLogFactory.GetHapiLog(typeof (DefaultModelClassFactory));
+			Log = HapiLogFactory.GetHapiLog(typeof(DefaultModelClassFactory));
 		}
 	}
 }

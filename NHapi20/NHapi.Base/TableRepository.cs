@@ -32,25 +32,8 @@ namespace NHapi.Base
 	/// </author>
 	public abstract class TableRepository
 	{
-		/// <summary> Returns a TableRepository object.</summary>
-		public static TableRepository Instance
-		{
-			get
-			{
-				if (rep == null)
-				{
-					//currently using DBTableRepository ... 
-					rep = new DBTableRepository();
-				}
-
-				return rep;
-			}
-		}
-
 		/// <summary> Returns a list of HL7 tables.  </summary>
 		public abstract int[] Tables { get; }
-
-		private static TableRepository rep = null;
 
 		/// <summary> Returns true if the given value exists in the given table.</summary>
 		public abstract bool checkValue(int table, String value_Renamed);

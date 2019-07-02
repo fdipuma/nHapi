@@ -1,4 +1,5 @@
 using System;
+using NHapi.Base;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using NHapi.Model.V22_ZSegments;
@@ -11,8 +12,10 @@ namespace NHapi.NUnit
 	public class CustomZSegmentTest
 	{
 		[Test]
-		public void ParseADT_A08()
+		public void ParseADT_A08_Globally()
 		{
+			PackageManager.Instance.AddCustomVersion("NHapi.Model.V22_ZSegments", "2.2.CustomZ");
+
 			//this is some fictive data
 			string message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A08|1049691900|P|2.2
 EVN|A08|200601060800
@@ -22,28 +25,6 @@ PV2|||^^AZIS||N|||200601060800
 IN1|0001|2|314000|||||||||19800101|||1|BARDOUN^LEA SACHA|1|19981201|AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150|||||||||||||||||
 ZIN|0164652011399|0164652011399|101|101|45789^Broken bone";
 
-
-			/*	**********************************************************
-			 * Requirements:
-			 * 
-			 * 1) You need to update the project's app.config <configSections>
-			 * element to include the 'Hl7PackageCollection' configuration section
-			 * 
-			 * <configSections>
-			 * 	<section name="Hl7PackageCollection" type="NHapi.Base.Model.Configuration.HL7PackageConfigurationSection, NHapi.Base"/>
-			 * </configSections>
-			 * 
-			 * And then you need to add a configuration that details the namespace and
-			 * custom version name so that the PipeParser can find the custom definitions:
-			 * 
-			 * <Hl7PackageCollection>
-			 *     <HL7Package name="NHapi.Model.V22_ZSegments" version="2.2.CustomZ"/>
-			 * </Hl7PackageCollection>
-			 * 
-			 * 2) You need to use this PipeParse.Parse(message, version) method
-			 * and use the version you defined in the app.config above.
-			 * 
-          * ***********************************************************/
 			var parser = new PipeParser();
 
 			IMessage m = parser.Parse(message, Constants.VERSION);

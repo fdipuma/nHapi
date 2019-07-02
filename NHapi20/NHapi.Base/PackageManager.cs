@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Text;
-using NHapi.Base.Model.Configuration;
 
 namespace NHapi.Base
 {
-	internal class PackageManager
+	public class PackageManager
 	{
 		private static readonly PackageManager _instance = new PackageManager();
 		private List<Hl7Package> _packages = new List<Hl7Package>();
@@ -20,7 +18,6 @@ namespace NHapi.Base
 		private PackageManager()
 		{
 			LoadBaseVersions();
-			LoadAdditionalVersions();
 		}
 
 		#endregion
@@ -32,7 +29,7 @@ namespace NHapi.Base
 			get { return _instance; }
 		}
 
-		public IList<Hl7Package> GetAllPackages()
+		internal IList<Hl7Package> GetAllPackages()
 		{
 			return _packages;
 		}
@@ -51,19 +48,21 @@ namespace NHapi.Base
 			}
 		}
 
-		private void LoadAdditionalVersions()
+		/// <summary>
+		/// Adds a custom package and version
+		/// </summary>
+		/// <param name="packageName"></param>
+		/// <param name="version"></param>
+		/// <exception cref="ArgumentNullException"></exception>
+		public void AddCustomVersion(string packageName, string version)
 		{
-			var configSection = ConfigurationManager.GetSection("Hl7PackageCollection") as HL7PackageConfigurationSection;
-			if (configSection != null)
-			{
-				foreach (HL7PackageElement package in configSection.Packages)
-				{
-					_packages.Insert(0, new Hl7Package(package.Name, package.Version));
-				}
-			}
+			if (packageName == null) throw new ArgumentNullException(nameof(packageName));
+			if (version == null) throw new ArgumentNullException(nameof(version));
+
+			_packages.Add(new Hl7Package(packageName, version));
 		}
 
-		public bool IsValidVersion(string version)
+		internal bool IsValidVersion(string version)
 		{
 			version = version.ToUpper().Trim();
 			foreach (Hl7Package package in _packages)
@@ -83,7 +82,7 @@ namespace NHapi.Base
 		/// This package should have the packages datatype, segment, group, and message
 		/// under it. The path ends in with a slash.
 		/// </summary>
-		public static String GetVersionPackagePath(String ver)
+		internal static String GetVersionPackagePath(String ver)
 		{
 			StringBuilder path = new StringBuilder("NHapi.Model.V");
 			char[] versionChars = new char[ver.Length];
@@ -103,7 +102,7 @@ namespace NHapi.Base
 		/// is identical to <code>getVersionPackagePath(...)</code> except that path
 		/// separators are replaced with dots.
 		/// </summary>
-		public static String GetVersionPackageName(String ver)
+		internal static String GetVersionPackageName(String ver)
 		{
 			String path = GetVersionPackagePath(ver);
 			String packg = path.Replace('/', '.');
