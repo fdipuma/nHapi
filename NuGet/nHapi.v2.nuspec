@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
-        <id>nHapi</id>
+        <id>nHapi.Core</id>
         <version>2.6.0.0</version>
-        <authors>Chad Chenoweth, Duane Edwards</authors>
+        <authors>Chad Chenoweth, Duane Edwards, Federico Dipuma</authors>
         <licenseUrl>http://www.mozilla.org/MPL/2.0/</licenseUrl>
-        <projectUrl>https://github.com/duaneedwards/nHapi</projectUrl>
-        <repository type="git" url="https://github.com/duaneedwards/nHapi" />
+        <projectUrl>https://github.com/fdipuma/nHapi</projectUrl>
+        <repository type="git" url="https://github.com/fdipuma/nHapi" />
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>NHapi is a port of the original project HAPI.
+        <description>NHapi.Core is the .NET Standard 2.0 version of a port of the original project HAPI.
 
 NHapi allows Microsoft .NET developers to easily use an HL7 2.x object model. This object model allows for parsing and encoding HL7 2.x data to/from Pipe Delimited or XML formats. A very handy program for use in the health care industry.
 
@@ -16,7 +16,6 @@ This project is NOT affiliated with the HL7 organization. This software just con
     <dependencies>
         <group targetFramework=".NETStandard2.0">
             <dependency id="NETStandard.Library" version="2.0.0" />
-            <dependency id="System.Configuration.ConfigurationManager" version="4.5.0" />
         </group>
     </dependencies>
     </metadata>

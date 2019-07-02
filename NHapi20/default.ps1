@@ -3,7 +3,7 @@ properties {
     $unitTestAssembly = "NHapi.NUnit.dll"
     $projectConfig = "Release"
     $base_dir = resolve-path .\
-    $test_dir = "$base_dir\NHapi.NUnit\bin\$projectConfig\net461"
+    $test_dir = "$base_dir\NHapi.NUnit\bin\$projectConfig\net472"
     $nunitPath = "$base_dir\packages\NUnit.ConsoleRunner.3.10.0\tools"
 }
 
@@ -19,21 +19,6 @@ Task Build -depends Clean {
     Exec { dotnet msbuild "Hl7Models.sln" /t:Build /p:Configuration=$projectConfig /v:quiet}
 }
 
-Task BuildModels {
-#    Exec { msbuild "Hl7Models.sln" /t:Build /p:Configuration=Debug /v:quiet}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.2 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.3 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.3.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.4 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.5 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-#    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.5.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.6 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.7 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.7.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.8 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-    Exec { ModelGenerator\Bin\Debug\ModelGenerator.exe /BasePath . /Version 2.8.1 /ConnectionString "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=C:\hl7_72_HQ.mdb;"}
-}
 
 task Test {
 	exec {
@@ -43,8 +28,8 @@ task Test {
 
 Task Package -depends Build {
 	Remove-Item ..\NuGet\*.dll
-	Copy-Item .\NHapi.NUnit\bin\Release\net461\*.dll ..\NuGet
-    Copy-Item .\NHapi.NUnit\bin\Release\net461\*.xml ..\NuGet
+	Copy-Item .\NHapi.NUnit\bin\Release\net472\*.dll ..\NuGet
+    Copy-Item .\NHapi.NUnit\bin\Release\net472\*.xml ..\NuGet
 	Exec { .nuget\nuget pack ..\NuGet\nHapi.v2.nuspec }
 }
 
