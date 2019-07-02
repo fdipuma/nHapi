@@ -1,10 +1,10 @@
 ﻿using NHapi.Base.Parser;
 using NHapi.Model.V231.Message;
-using NUnit.Framework;
+using Xunit;
 
-namespace NHapi.NUnit
+namespace NHapi.Tests
 {
-	[TestFixture]
+	
 	public class PipeParsingORM
 	{
 		private const string Message_ORMSample =
@@ -14,14 +14,14 @@ PV1||O|OP^PAREG^||||2342^Jones^Bob|||OP|||||||||2|||||||||||||||||||||||||200603
 ORC|NW|20060307110114
 OBR|1|20060307110114||003038^Urinalysis^L|||20060307110114";
 		
-		[Test]
+		[Fact]
 		public void TestORMDescriptionExtract()
 		{
 			var parser = new PipeParser();
 			var results = parser.Parse(Message_ORMSample);
 			var typed = results as ORM_O01;
 
-			Assert.AreEqual(typed.PATIENT.PID.DateTimeOfBirth.Description, @"Date/Time Of Birth");
+			Assert.Equal(@"Date/Time Of Birth", typed.PATIENT.PID.DateTimeOfBirth.Description);
 		}
 	}
 }

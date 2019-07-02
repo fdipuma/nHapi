@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\nHapi.Base\NHapi.Base.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V21\NHapi.Model.V21.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V22\NHapi.Model.V22.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V22_ZSegments\NHapi.Model.V22_ZSegments.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V231\NHapi.Model.V231.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V23\NHapi.Model.V23.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V24\NHapi.Model.V24.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V251\NHapi.Model.V251.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V25\NHapi.Model.V25.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V26\NHapi.Model.V26.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V271\NHapi.Model.V271.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V27\NHapi.Model.V27.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V281\NHapi.Model.V281.csproj" />
+    <ProjectReference Include="..\NHapi.Model.V28\NHapi.Model.V28.csproj" />
+  </ItemGroup>
+
+</Project>

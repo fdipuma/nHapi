@@ -1,15 +1,13 @@
-using System;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using NHapi.Model.V21.Message;
-using NUnit.Framework;
+using Xunit;
 
-namespace NHapi.NUnit
+namespace NHapi.Tests
 {
-	[TestFixture]
 	public class PipeParsingFixture21
 	{
-		[Test]
+		[Fact]
 		public void ParseADTA01()
 		{
 			string message = @"MSH|^~\&|ADT|Admitting|RADIO|ARTEFACT|200710061035||ADT^A01|00000040|P|2.1
@@ -26,8 +24,8 @@ Z01|1||S|NOUVEAU-NE||FATHER NAME^D|||||0||||A||||||N|||1|GFATHER NAME|G-PERE||(4
 
 			ADT_A01 parsedMessage = m as ADT_A01;
 
-			Assert.IsNotNull(parsedMessage);
-			Assert.AreEqual("1144270", parsedMessage.PID.PATIENTIDEXTERNALEXTERNALID.IDNumber.Value);
+			Assert.NotNull(parsedMessage);
+			Assert.Equal("1144270", parsedMessage.PID.PATIENTIDEXTERNALEXTERNALID.IDNumber.Value);
 		}
 	}
 }

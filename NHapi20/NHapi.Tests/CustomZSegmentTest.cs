@@ -1,17 +1,24 @@
-using System;
 using NHapi.Base;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using NHapi.Model.V22_ZSegments;
 using NHapi.Model.V22_ZSegments.Message;
-using NUnit.Framework;
+using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
-namespace NHapi.NUnit
+namespace NHapi.Tests
 {
-	[TestFixture]
 	public class CustomZSegmentTest
 	{
-		[Test]
+		private readonly ITestOutputHelper _output;
+
+		public CustomZSegmentTest(ITestOutputHelper output)
+		{
+			_output = output;
+		}
+
+		[Fact]
 		public void ParseADT_A08_Globally()
 		{
 			PackageManager.Instance.AddCustomVersion("NHapi.Model.V22_ZSegments", "2.2.CustomZ");
@@ -29,14 +36,14 @@ ZIN|0164652011399|0164652011399|101|101|45789^Broken bone";
 
 			IMessage m = parser.Parse(message, Constants.VERSION);
 
-			Assert.IsNotNull(m);
+			Assert.NotNull(m);
 
-			Console.WriteLine("Type: " + m.GetType());
+			_output.WriteLine("Type: " + m.GetType());
 
 			var adtA08 = m as ADT_A08;
 			//verify some Z segment data
-			Assert.AreEqual("45789", adtA08.ZIN.AccidentData.Id.Value);
-			Assert.AreEqual("Broken bone", adtA08.ZIN.AccidentData.Text.Value);
+			Assert.Equal("45789", adtA08.ZIN.AccidentData.Id.Value);
+			Assert.Equal("Broken bone", adtA08.ZIN.AccidentData.Text.Value);
 		}
 	}
 }

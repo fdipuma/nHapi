@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V22", "NHapi.Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V21", "NHapi.Model.V21\NHapi.Model.V21.csproj", "{4B3417BA-0090-4FA0-B04B-BB19563FC11C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.NUnit", "NHapi.NUnit\NHapi.NUnit.csproj", "{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V25", "NHapi.Model.V25\NHapi.Model.V25.csproj", "{BE6CDFAD-560E-44CC-B23B-87252DD4392C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V22_ZSegments", "NHapi.Model.V22_ZSegments\NHapi.Model.V22_ZSegments.csproj", "{FFECB4DE-C192-4F95-9DC7-9D0A815D250A}"
@@ -40,6 +38,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V271", "NHapi.Model.V271\NHapi.Model.V271.csproj", "{5AEC7EA6-D02D-4DD5-82F4-D28ECF2BE1EA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Model.V281", "NHapi.Model.V281\NHapi.Model.V281.csproj", "{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHapi.Tests", "NHapi.Tests\NHapi.Tests.csproj", "{E264C0F2-21F7-4259-8842-E3FD5917956C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +71,6 @@ Global
 		{4B3417BA-0090-4FA0-B04B-BB19563FC11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B3417BA-0090-4FA0-B04B-BB19563FC11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B3417BA-0090-4FA0-B04B-BB19563FC11C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C7C99F0-672B-4DB1-A125-5ED7A3ADF95E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE6CDFAD-560E-44CC-B23B-87252DD4392C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE6CDFAD-560E-44CC-B23B-87252DD4392C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE6CDFAD-560E-44CC-B23B-87252DD4392C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,6 +103,10 @@ Global
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CB07522-CEF0-44B4-B84A-110CAF19F5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E264C0F2-21F7-4259-8842-E3FD5917956C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E264C0F2-21F7-4259-8842-E3FD5917956C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E264C0F2-21F7-4259-8842-E3FD5917956C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E264C0F2-21F7-4259-8842-E3FD5917956C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
