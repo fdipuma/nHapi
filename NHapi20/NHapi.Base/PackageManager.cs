@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using NHapi.Base.Parser;
 
 namespace NHapi.Base
 {
@@ -59,7 +61,14 @@ namespace NHapi.Base
 			if (packageName == null) throw new ArgumentNullException(nameof(packageName));
 			if (version == null) throw new ArgumentNullException(nameof(version));
 
+			if (_packages.Any(p => p.PackageName == packageName && p.Version == version))
+				return;
+
 			_packages.Add(new Hl7Package(packageName, version));
+
+			// invalidate static cache of other components relying on PackageManager
+			EventMapper.Instance.UseCache = false;
+			DefaultModelClassFactory.UseCache = false;
 		}
 
 		internal bool IsValidVersion(string version)

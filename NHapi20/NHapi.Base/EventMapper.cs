@@ -13,6 +13,7 @@ namespace NHapi.Base
 	{
 		private Hashtable _map = new Hashtable();
 		private static readonly EventMapper _instance = new EventMapper();
+		internal bool UseCache { get; set; }
 
 		#region Constructors
 
@@ -22,27 +23,7 @@ namespace NHapi.Base
 
 		private EventMapper()
 		{
-			IList<Hl7Package> packages = PackageManager.Instance.GetAllPackages();
-			foreach (Hl7Package package in packages)
-			{
-				Assembly assembly = null;
-				try
-				{
-					var assemblyToLoad = RemoveTrailingDot(package);
-					assembly = Assembly.Load(assemblyToLoad);
-				}
-				catch (FileNotFoundException)
-				{
-					//Just skip, this assembly is not used
-				}
 
-				NameValueCollection structures = new NameValueCollection();
-				if (assembly != null)
-				{
-					structures = GetAssemblyEventMapping(assembly, package);
-				}
-				_map[package.Version] = structures;
-			}
 		}
 
 		private static string RemoveTrailingDot(Hl7Package package)
@@ -68,7 +49,37 @@ namespace NHapi.Base
 
 		public Hashtable Maps
 		{
-			get { return _map; }
+			get
+			{
+				if (!UseCache)
+				{
+					var packages = PackageManager.Instance.GetAllPackages();
+
+					foreach (var package in packages)
+					{
+						Assembly assembly = null;
+						try
+						{
+							var assemblyToLoad = RemoveTrailingDot(package);
+							assembly = Assembly.Load(assemblyToLoad);
+						}
+						catch (FileNotFoundException)
+						{
+							//Just skip, this assembly is not used
+						}
+
+						var structures = new NameValueCollection();
+						if (assembly != null)
+						{
+							structures = GetAssemblyEventMapping(assembly, package);
+						}
+
+						_map[package.Version] = structures;
+					}
+				}
+
+				return _map;
+			}
 		}
 
 		#endregion

@@ -21,7 +21,7 @@ namespace NHapi.Tests
 		[Fact]
 		public void ParseADT_A08()
 		{
-			PackageManager.Instance.AddCustomVersion(typeof(NHapi.Model.V22_ZSegments.Constants).Namespace, "2.2.CustomZ");
+			//PackageManager.Instance.AddCustomVersion(typeof(NHapi.Model.V22_ZSegments.Constants).Namespace, "2.2.CustomZ");
 
 			//this is some fictive data
 			string message = "MSH|^~\\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A08|1049691900|P|2.2\r\n" +
@@ -33,6 +33,12 @@ namespace NHapi.Tests
 			                 "ZIN|0164652011399|0164652011399|101|101|45789^Broken bone\r\n";
 
 			var parser = new PipeParser();
+
+			IMessage m1 = parser.Parse(message);
+
+			PackageManager.Instance.AddCustomVersion(typeof(NHapi.Model.V22_ZSegments.Constants).Namespace, "2.2.CustomZ");
+
+			parser = new PipeParser();
 
 			IMessage m = parser.Parse(message, Constants.VERSION);
 

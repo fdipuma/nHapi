@@ -24,6 +24,7 @@ namespace NHapi.Base.Parser
 		private static readonly object LockObject = new object();
 		private static readonly IHapiLog Log;
 		private static Dictionary<string, List<string>> _globalPackages = null;
+		internal static bool UseCache { get; set; }
 
 		/// <summary> <p>Attempts to return the message class corresponding to the given name, by 
 		/// searching through default and user-defined (as per PackageList()) packages. 
@@ -138,11 +139,11 @@ namespace NHapi.Base.Parser
 		{
 			//load package lists if necessary ... 
 
-			if (_globalPackages == null)
+			if (_globalPackages == null || !UseCache)
 			{
 				lock (LockObject)
 				{
-					if (_globalPackages == null)
+					if (_globalPackages == null || !UseCache)
 					{
 						_globalPackages = PackageManager.Instance
 							.GetAllPackages()
@@ -156,14 +157,6 @@ namespace NHapi.Base.Parser
 				throw new Exception($"Package '{version}' could not be found");
 			
 			return global;
-		}
-
-		private static void AddPackage(Hashtable packages, Hl7Package package)
-		{
-			if (packages[package.Version] == null)
-				packages[package.Version] = new List<string>();
-			List<string> versions = (List<string>)packages[package.Version];
-			versions.Add(package.PackageName);
 		}
 		
 		/// <summary> Finds a message or segment class by name and version.</summary>
