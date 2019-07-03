@@ -19,9 +19,9 @@ namespace NHapi.Tests
 		}
 
 		[Fact]
-		public void ParseADT_A08_Globally()
+		public void ParseADT_A08()
 		{
-			PackageManager.Instance.AddCustomVersion("NHapi.Model.V22_ZSegments", "2.2.CustomZ");
+			PackageManager.Instance.AddCustomVersion(typeof(NHapi.Model.V22_ZSegments.Constants).Namespace, "2.2.CustomZ");
 
 			//this is some fictive data
 			string message = "MSH|^~\\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A08|1049691900|P|2.2\r\n" +
