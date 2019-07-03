@@ -150,6 +150,8 @@ namespace NHapi.Base.Parser
 							.GroupBy(p => p.Version)
 							.ToDictionary(g => g.Key, g => g.Select(p => p.PackageName).ToList());
 					}
+
+					UseCache = true;
 				}
 			}
 

@@ -13,7 +13,8 @@ namespace NHapi.Base
 	{
 		private Hashtable _map = new Hashtable();
 		private static readonly EventMapper _instance = new EventMapper();
-		internal bool UseCache { get; set; }
+		internal bool UseCache { private get; set; }
+		private readonly object _lockObj = new object();
 
 		#region Constructors
 
@@ -51,34 +52,46 @@ namespace NHapi.Base
 		{
 			get
 			{
-				if (!UseCache)
+				CreateCache();
+				return _map;
+			}
+		}
+
+		private void CreateCache()
+		{
+			if (UseCache) return;
+
+			lock (_lockObj)
+			{
+				if (UseCache) return;
+
+				_map.Clear();
+
+				var packages = PackageManager.Instance.GetAllPackages();
+
+				foreach (var package in packages)
 				{
-					var packages = PackageManager.Instance.GetAllPackages();
-
-					foreach (var package in packages)
+					Assembly assembly = null;
+					try
 					{
-						Assembly assembly = null;
-						try
-						{
-							var assemblyToLoad = RemoveTrailingDot(package);
-							assembly = Assembly.Load(assemblyToLoad);
-						}
-						catch (FileNotFoundException)
-						{
-							//Just skip, this assembly is not used
-						}
-
-						var structures = new NameValueCollection();
-						if (assembly != null)
-						{
-							structures = GetAssemblyEventMapping(assembly, package);
-						}
-
-						_map[package.Version] = structures;
+						var assemblyToLoad = RemoveTrailingDot(package);
+						assembly = Assembly.Load(assemblyToLoad);
 					}
+					catch (FileNotFoundException)
+					{
+						//Just skip, this assembly is not used
+					}
+
+					var structures = new NameValueCollection();
+					if (assembly != null)
+					{
+						structures = GetAssemblyEventMapping(assembly, package);
+					}
+
+					_map[package.Version] = structures;
 				}
 
-				return _map;
+				UseCache = true;
 			}
 		}
 
