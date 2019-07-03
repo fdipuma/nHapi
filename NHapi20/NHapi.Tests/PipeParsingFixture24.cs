@@ -14,8 +14,9 @@ namespace NHapi.Tests
 		[Fact]
 		public void ParseQRYR02()
 		{
-			string message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.4|
-QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
+			string message =
+				"MSH|^~\\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.4|\r\n" +
+				"QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
 			PipeParser Parser = new PipeParser();
 
@@ -32,13 +33,13 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 		public void ParseORFR04()
 		{
 			string message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -53,13 +54,13 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		public void ParseORFR04ToXML()
 		{
 			string message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -102,13 +103,13 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		public void ParseORFR04ToXmlNoOCR()
 		{
 			string message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -129,26 +130,25 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		[Fact]
 		public void TestOBXDataTypes()
 		{
-			string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.4|||
-MSA|CA|1
-QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||
-QRF|||||||||
-OBR|1|5149916^EPC|20050118113415533318^|E8600^ECG^^^ECG|||200501181134||||||Age: 17  yrs ~Criteria: C-HP708 ~|||||1||Zztesttwocorhoi|Results||||F||^^^^^Routine|||||||||200501181134|||||||||
-OBX|1|ST|:8601-7^ECG IMPRESSION|2|Normal sinus rhythm, rate  77     Normal P axis, PR, rate & rhythm ||||||F||1|200501181134||
-OBX|2|ST|:8625-6^PR INTERVAL|3|141||||||F||1|200501181134||
-OBX|3|ST|:8633-0^QRS DURATION|4|83||||||F||1|200501181134||
-OBX|4|ST|:8634-8^QT INTERVAL|5|358||||||F||1|200501181134||
-OBX|5|ST|:8636-3^QT INTERVAL CORRECTED|6|405||||||F||1|200501181134||
-OBX|6|ST|:8626-4^FRONTAL AXIS P|7|-1||||||F||1|200501181134||
-OBX|7|ST|:99003^FRONTAL AXIS INITIAL 40 MS|8|41||||||F||1|200501181134||
-OBX|8|ST|:8632-2^FRONTAL AXIS MEAN QRS|9|66||||||F||1|200501181134||
-OBX|9|ST|:99004^FRONTAL AXIS TERMINAL 40 MS|10|80||||||F||1|200501181134||
-OBX|10|ST|:99005^FRONTAL AXIS ST|11|36||||||F||1|200501181134||
-OBX|11|ST|:8638-9^FRONTAL AXIS T|12|40||||||F||1|200501181134||
-OBX|12|ST|:99006^ECG SEVERITY T|13|- NORMAL ECG - ||||||F||1|200501181134||
-OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419125100|PPKMG|PPJW^SMITH, Fred 
-QAK||OK||1|1|0
-";
+			string message = "MSH|^~\\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.4|||\r\n" +
+			                 "MSA|CA|1\r\n" +
+			                 "QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||\r\n" +
+			                 "QRF|||||||||\r\n" +
+			                 "OBR|1|5149916^EPC|20050118113415533318^|E8600^ECG^^^ECG|||200501181134||||||Age: 17  yrs ~Criteria: C-HP708 ~|||||1||Zztesttwocorhoi|Results||||F||^^^^^Routine|||||||||200501181134|||||||||\r\n" +
+			                 "OBX|1|ST|:8601-7^ECG IMPRESSION|2|Normal sinus rhythm, rate  77     Normal P axis, PR, rate & rhythm ||||||F||1|200501181134||\r\n" +
+			                 "OBX|2|ST|:8625-6^PR INTERVAL|3|141||||||F||1|200501181134||\r\n" +
+			                 "OBX|3|ST|:8633-0^QRS DURATION|4|83||||||F||1|200501181134||\r\n" +
+			                 "OBX|4|ST|:8634-8^QT INTERVAL|5|358||||||F||1|200501181134||\r\n" +
+			                 "OBX|5|ST|:8636-3^QT INTERVAL CORRECTED|6|405||||||F||1|200501181134||\r\n" +
+			                 "OBX|6|ST|:8626-4^FRONTAL AXIS P|7|-1||||||F||1|200501181134||\r\n" +
+			                 "OBX|7|ST|:99003^FRONTAL AXIS INITIAL 40 MS|8|41||||||F||1|200501181134||\r\n" +
+			                 "OBX|8|ST|:8632-2^FRONTAL AXIS MEAN QRS|9|66||||||F||1|200501181134||\r\n" +
+			                 "OBX|9|ST|:99004^FRONTAL AXIS TERMINAL 40 MS|10|80||||||F||1|200501181134||\r\n" +
+			                 "OBX|10|ST|:99005^FRONTAL AXIS ST|11|36||||||F||1|200501181134||\r\n" +
+			                 "OBX|11|ST|:8638-9^FRONTAL AXIS T|12|40||||||F||1|200501181134||\r\n" +
+			                 "OBX|12|ST|:99006^ECG SEVERITY T|13|- NORMAL ECG - ||||||F||1|200501181134||\r\n" +
+			                 "OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419125100|PPKMG|PPJW^SMITH, Fred \r\n" +
+			                 "QAK||OK||1|1|0\r\n";
 
 			PipeParser parser = new PipeParser();
 
@@ -167,13 +167,13 @@ QAK||OK||1|1|0
 		public void ParseORFR04ToXmlNoNTE()
 		{
 			string message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.4|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -269,13 +269,13 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		[Fact]
 		public void TestGithubIssue24CantGetIN1Segment()
 		{
-			string message = @"MSH|^~\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.4
-	EVN|A01|200601060800
-	PID||8912716038^^^51276|0216128^^^51276||BARDOUN^LEA SACHA||19981201|F|||AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150||053/12456789||N|S|||99120162652||^^^|||||B
-	PV1||O|^^|U|||07632^MORTELO^POL^^^DR.|^^^^^|||||N||||||0200001198
-	PV2|||^^AZIS||N|||200601060800
-	IN1|0001|2|314000|||||||||19800101|||1|BARDOUN^LEA SACHA|1|19981201|AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150|||||||||||||||||
-	ZIN|0164652011399|0164652011399|101|101|45789^Broken bone";
+			string message = "MSH|^~\\&|SUNS1|OVI02|AZIS|CMD|200606221348||ADT^A01|1049691900|P|2.4\r\n" +
+			                 "\tEVN|A01|200601060800\r\n" +
+			                 "\tPID||8912716038^^^51276|0216128^^^51276||BARDOUN^LEA SACHA||19981201|F|||AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150||053/12456789||N|S|||99120162652||^^^|||||B\r\n" +
+			                 "\tPV1||O|^^|U|||07632^MORTELO^POL^^^DR.|^^^^^|||||N||||||0200001198\r\n" +
+			                 "\tPV2|||^^AZIS||N|||200601060800\r\n" +
+			                 "\tIN1|0001|2|314000|||||||||19800101|||1|BARDOUN^LEA SACHA|1|19981201|AVENUE FRANC GOLD 8^^LUXEMBOURGH^^6780^150|||||||||||||||||\r\n" +
+			                 "\tZIN|0164652011399|0164652011399|101|101|45789^Broken bone";
 
 			var parser = new PipeParser();
 			var abstractMessage = parser.Parse(message);
@@ -304,28 +304,28 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		[Fact]
 		public void TestGithubIssue58ProblemWithMultipleOrder_Observations()
 		{
-			var message = @"MSH|^~\&|MOLIS|TEAMW|||20040322151046||ORU^R01|2116|P|2.4||||||8859
-PID|1|1847|50381^^^^^MOLIS~^^^^^VTD||TEST A^||19711125|F|||test^^Roma^^00144^||||
-ORC|NW|FA9999020000^MOLIS|FA9999020000^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
-OBR|1|FA9999020000^MOLIS|FA9999020000^MOLIS|00^^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
-NTE|0||Isolierte Cardiolipin-Autoantikörper vom Typ IgM in niedriger Konzentration sind von fraglicher klinischer Relevanz. Es empfiehlt sich eine Kontrolle aus einer neuen Probe und die zusätzliche Bestimmung der beta-2-Glykoprotein-Autoantikörper.|RE
-NTE|0||Umlaute Test : ÄÖÜäöüßéèàçù|RE
-NTE|0||Ende Test Umlaute|RE
-OBX|1|FT|ALLERG^Allergie^MOLIS||vv Dies eist ein Test zum Drucke\.br\ etwas längeren Textes auf dem Allergiepass||||||C|||20030331053409|||||
-ORC|NW|FA9999020018^MOLIS|FA9999020018^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
-OBR|2|FA9999020018^MOLIS|FA9999020018^MOLIS|18^Immunologie^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
-OBX|1|TX|ACLAS^Anti-Cardiolipin-Screen^MOLIS||negativ|MOC^^L|(<1.0)||||C|||20030331053409|||||
-OBX|2|NM|ACLAG^Anti-Cardiolipin IgG^MOLIS||0.2|MOC^^L|(<1.0)||||F|||20030331053409|||||
-NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE
-OBX|3|NM|ACLAM^Anti-Cardiolipin IgM^MOLIS||111.3|MOC^^L|(<1.0)|H|||C|||20030331053409|||||
-NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE
-ORC|NW|FA9999020026^MOLIS|FA9999020026^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||
-OBR|3|FA9999020026^MOLIS|FA9999020026^MOLIS|26^Hormone^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||
-OBX|1|NM|FSH^FSH^MOLIS||1.0|U/l^^L|(1.6-12.0)Follikulär \ (8.0-22.0)Peak \ (0.9-12.0)Luteal \ (1.0-17.0)Kontrazeptiva \ (35-151)Menopause||||C|||20030331053409|||||
-OBX|2|NM|LH^LH^MOLIS||37.4|U/l^^L|(1.8-13.4)Follikulär \ (15.6-78.9)Peak \ (0.7-19.4)Luteal \ (1.0-15.0)Kontrazeptiva \ (10.8-61.4)Menopause||||F|||20030331053409|||||
-OBX|3|NM|LHFSHQ^LH-FSH-Quotient^MOLIS||37.4||(<2.0)|H|||F|||20030331053409|||||
-OBX|4|NM|PROL^Prolactin^MOLIS||10.3|µg/l^^L|(2.3-25.0) \ (2.3-10.0)Menopause||||F|||20030331053409|||||
-OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikulär \ (551-1938)Peak \ (220-774)Luteal \ (<114)Menopause||||F|||20030331053409||||| ";
+			var message = "MSH|^~\\&|MOLIS|TEAMW|||20040322151046||ORU^R01|2116|P|2.4||||||8859\r\n" +
+			              "PID|1|1847|50381^^^^^MOLIS~^^^^^VTD||TEST A^||19711125|F|||test^^Roma^^00144^||||\r\n" +
+			              "ORC|NW|FA9999020000^MOLIS|FA9999020000^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||\r\n" +
+			              "OBR|1|FA9999020000^MOLIS|FA9999020000^MOLIS|00^^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||\r\n" +
+			              "NTE|0||Isolierte Cardiolipin-Autoantikörper vom Typ IgM in niedriger Konzentration sind von fraglicher klinischer Relevanz. Es empfiehlt sich eine Kontrolle aus einer neuen Probe und die zusätzliche Bestimmung der beta-2-Glykoprotein-Autoantikörper.|RE\r\n" +
+			              "NTE|0||Umlaute Test : ÄÖÜäöüßéèàçù|RE\r\n" +
+			              "NTE|0||Ende Test Umlaute|RE\r\n" +
+			              "OBX|1|FT|ALLERG^Allergie^MOLIS||vv Dies eist ein Test zum Drucke\\.br\\ etwas längeren Textes auf dem Allergiepass||||||C|||20030331053409|||||\r\n" +
+			              "ORC|NW|FA9999020018^MOLIS|FA9999020018^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||\r\n" +
+			              "OBR|2|FA9999020018^MOLIS|FA9999020018^MOLIS|18^Immunologie^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||\r\n" +
+			              "OBX|1|TX|ACLAS^Anti-Cardiolipin-Screen^MOLIS||negativ|MOC^^L|(<1.0)||||C|||20030331053409|||||\r\n" +
+			              "OBX|2|NM|ACLAG^Anti-Cardiolipin IgG^MOLIS||0.2|MOC^^L|(<1.0)||||F|||20030331053409|||||\r\n" +
+			              "NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE\r\n" +
+			              "OBX|3|NM|ACLAM^Anti-Cardiolipin IgM^MOLIS||111.3|MOC^^L|(<1.0)|H|||C|||20030331053409|||||\r\n" +
+			              "NTE|1||Bitte beachten: Normwert- und Methodenänderung zum 13.03.03.|RE\r\n" +
+			              "ORC|NW|FA9999020026^MOLIS|FA9999020026^MOLIS|FA99990200^MOLIS|CM||^^^20030331053409^^R|||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS||||||||||||\r\n" +
+			              "OBR|3|FA9999020026^MOLIS|FA9999020026^MOLIS|26^Hormone^MOLIS||20030327000000|20030331053409|||||||||MOLIS^SYSMEX MOLIS^^^^^^^^^^MOLIS|||||||||||^^^20030331053409^^R||||||||||||||||||||\r\n" +
+			              "OBX|1|NM|FSH^FSH^MOLIS||1.0|U/l^^L|(1.6-12.0)Follikulär \\ (8.0-22.0)Peak \\ (0.9-12.0)Luteal \\ (1.0-17.0)Kontrazeptiva \\ (35-151)Menopause||||C|||20030331053409|||||\r\n" +
+			              "OBX|2|NM|LH^LH^MOLIS||37.4|U/l^^L|(1.8-13.4)Follikulär \\ (15.6-78.9)Peak \\ (0.7-19.4)Luteal \\ (1.0-15.0)Kontrazeptiva \\ (10.8-61.4)Menopause||||F|||20030331053409|||||\r\n" +
+			              "OBX|3|NM|LHFSHQ^LH-FSH-Quotient^MOLIS||37.4||(<2.0)|H|||F|||20030331053409|||||\r\n" +
+			              "OBX|4|NM|PROL^Prolactin^MOLIS||10.3|µg/l^^L|(2.3-25.0) \\ (2.3-10.0)Menopause||||F|||20030331053409|||||\r\n" +
+			              "OBX|5|NM|E2^Estradiol, E2^MOLIS||39|pmol/l^^L|(70-672)Follikulär \\ (551-1938)Peak \\ (220-774)Luteal \\ (<114)Menopause||||F|||20030331053409||||| ";
 
 			PipeParser parser = new PipeParser();
 

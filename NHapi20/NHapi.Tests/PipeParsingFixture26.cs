@@ -13,13 +13,13 @@ namespace NHapi.Tests
 	{
 		public string GetMessage()
 		{
-			return @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.6|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F
-OBX|2|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F
-OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
+			return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.6|||AL|||ASCII\r\n" +
+			       "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			       "ORC|||||F\r\n" +
+			       "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			       "OBX|1|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F\r\n" +
+			       "OBX|2|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F\r\n" +
+			       "OBX|3|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F";
 		}
 
 		[Fact]
@@ -43,13 +43,13 @@ OBX|3|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 
 		[Theory]
 		[InlineData(
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.6|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|DT|||DTValue||||||F
-OBX|2|ST|||STValue||||||F
-OBX|3|TM|||TMValue||||||F"
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.6|||AL|||ASCII\r\n" + 
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" + 
+			"ORC|||||F\r\n" + 
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" + 
+			"OBX|1|DT|||DTValue||||||F\r\n" + 
+			"OBX|2|ST|||STValue||||||F\r\n" + 
+			"OBX|3|TM|||TMValue||||||F"
 		//OBX|4|ID|||IDValue||||||F //Doesn't work
 		//OBX|5|IS|||ISValue||||||F //Doesn't work
 		)]
@@ -79,10 +79,10 @@ OBX|3|TM|||TMValue||||||F"
 		[Fact]
 		public void TestADTA04IsMappedAsA01()
 		{
-			string hl7Data = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A04|1|P|2.6|
-EVN|
-PID|1|12345
-PV1|1";
+			string hl7Data = "MSH|^~\\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||ADT^A04|1|P|2.6|\r\n" + 
+			                 "EVN|\r\n" + 
+			                 "PID|1|12345\r\n" + 
+			                 "PV1|1";
 			PipeParser parser = new PipeParser();
 			IMessage msg = parser.Parse(hl7Data);
 
@@ -116,11 +116,12 @@ PV1|1";
 		[Fact]
 		public void TestORUR01_HasDTMFieldParsed()
 		{
-			string hl7Data = @"MSH|^~\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISO
-PID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000
-PV1|1|A
-OBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||P
-OBX|1|DTM|721025^MDC_IDC_SESS_DTM^MDC||20160627041809+0000||||||P";
+			string hl7Data =
+				"MSH|^~\\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISO\r\n" +
+				"PID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000\r\n" +
+				"PV1|1|A\r\n" +
+				"OBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||P\r\n" +
+				"OBX|1|DTM|721025^MDC_IDC_SESS_DTM^MDC||20160627041809+0000||||||P";
 
 			PipeParser parser = new PipeParser();
 			IMessage msg = parser.Parse(hl7Data);
@@ -139,13 +140,13 @@ OBX|1|DTM|721025^MDC_IDC_SESS_DTM^MDC||20160627041809+0000||||||P";
 		[Fact]
 		public void TestORUR01_Enumerators()
 		{
-			string hl7Data = @"MSH|^~\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISO
-PID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000
-PV1|1|A
-OBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||P
-OBX|1|ST|||TestString||||||P
-OBX|2|NM|||9001||||||P
-OBX|3|DTM|||20160627041809+0000||||||P";
+			string hl7Data = "MSH|^~\\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISO\r\n" + 
+			                 "PID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000\r\n" + 
+			                 "PV1|1|A\r\n" + 
+			                 "OBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||P\r\n" + 
+			                 "OBX|1|ST|||TestString||||||P\r\n" + 
+			                 "OBX|2|NM|||9001||||||P\r\n" + 
+			                 "OBX|3|DTM|||20160627041809+0000||||||P";
 
 			PipeParser parser = new PipeParser();
 			IMessage msg = parser.Parse(hl7Data);
@@ -185,13 +186,14 @@ OBX|3|DTM|||20160627041809+0000||||||P";
 		[Fact]
 		public void TestORUR01_AddAndRemoveMethods()
 		{
-			string hl7Data = @"MSH|^~\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISO
-PID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000
-PV1|1|A
-OBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||P
-OBX|1|ST|||TestString||||||P
-OBX|2|NM|||9001||||||P
-OBX|3|DTM|||20160627041809+0000||||||P";
+			string hl7Data =
+				"MSH|^~\\&|Paceart|Medtronic|||20160628142621||ORU^R01^ORU_R01|20160628142621000001|P|2.6|||AL|NE|||||IHE_PCD_ORU_R01^IHE PCD^1.3.6.1.4.1.19376.1.6.1.9.1^ISO\r\n" +
+				"PID|||MODEL:A3DR01 Advisa DR MRI/SERIAL:PZK600806S^^^MDT^U~^^^^Patient ID~A10000641^^^^Paceart||Patient^Test||19100000000000+0000\r\n" +
+				"PV1|1|A\r\n" +
+				"OBR|1||dfac748c-213c-e611-80c5-000c2996266c|754050^MDC_IDC_ENUM_SESS_TYPE_InClinic^MDC^INCLINIC^INCLINIC^MDT|||20160627041809+0000||||||||||||||||||P\r\n" +
+				"OBX|1|ST|||TestString||||||P\r\n" +
+				"OBX|2|NM|||9001||||||P\r\n" +
+				"OBX|3|DTM|||20160627041809+0000||||||P";
 
 			PipeParser parser = new PipeParser();
 			IMessage msg = parser.Parse(hl7Data);

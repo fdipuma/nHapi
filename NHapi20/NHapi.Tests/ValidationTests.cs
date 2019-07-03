@@ -11,11 +11,11 @@ namespace NHapi.Tests
 	public class ValidationTests
 	{
 		public const string Message_SI_NegativeNumber =
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|SI|||-1||||||F";
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII\r\n" +
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			"ORC|||||F\r\n" +
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			"OBX|1|SI|||-1||||||F";
 
 		[Theory, InlineData(Message_SI_NegativeNumber)]
 		public void TestStrictValidation_NegativeNumber(string message)
@@ -36,39 +36,39 @@ OBX|1|SI|||-1||||||F";
 		}
 
 		public const string Message_NM_Alpha =
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|NM|||Hello||||||F";
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII\r\n" +
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			"ORC|||||F\r\n" +
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			"OBX|1|NM|||Hello||||||F";
 
 		public const string Message_NM_Char =
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|NM|||!@#$||||||F";
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII\r\n" +
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			"ORC|||||F\r\n" +
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			"OBX|1|NM|||!@#$||||||F";
 
 		public const string Message_NM_Number =
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|NM|||10||||||F";
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII\r\n" +
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			"ORC|||||F\r\n" +
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			"OBX|1|NM|||10||||||F";
 
 		public const string Message_NM_NegativeNumber =
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|NM|||-1||||||F";
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII\r\n" +
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			"ORC|||||F\r\n" +
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			"OBX|1|NM|||-1||||||F";
 
 		public const string Message_NM_Decimal =
-			@"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|NM|||1.5||||||F";
+			"MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.5.1|||AL|||ASCII\r\n" +
+			"PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			"ORC|||||F\r\n" +
+			"OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			"OBX|1|NM|||1.5||||||F";
 
 		[Theory]
 		[InlineData(Message_NM_Alpha, true)]
@@ -89,8 +89,7 @@ OBX|1|NM|||1.5||||||F";
 			}
 
 			parser.ValidationContext = new StrictValidation();
-			string message = string.Format("Strict validation {0} throw a {1} when parsing a NM field with alpha values",
-				shouldThrow ? "should" : "should not", typeof(DataTypeException).Name);
+			
 			if (shouldThrow)
 			{
 				Assert.Throws<DataTypeException>(() => { oru = (ORU_R01)parser.Parse(testMessage); });

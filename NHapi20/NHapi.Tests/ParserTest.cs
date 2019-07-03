@@ -20,11 +20,11 @@ namespace NHapi.Tests
 
 		public string GetMessage()
 		{
-			return @"MSH|^~\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII
-PID|1||1711114||Appt^Test||19720501||||||||||||001020006
-ORC|||||F
-OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F
-OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
+			return "MSH|^~\\&|XPress Arrival||||200610120839||ORU^R01|EBzH1711114101206|P|2.3.1|||AL|||ASCII\r\n" +
+			       "PID|1||1711114||Appt^Test||19720501||||||||||||001020006\r\n" +
+			       "ORC|||||F\r\n" +
+			       "OBR|1|||ehipack^eHippa Acknowlegment|||200610120839|||||||||00002^eProvider^Electronic|||||||||F\r\n" +
+			       "OBX|1|FT|||This\\.br\\is\\.br\\A Test~MoreText~SomeMoreText||||||F\r\n";
 		}
 
 		[Fact]
@@ -161,8 +161,10 @@ OBX|1|FT|||This\.br\is\.br\A Test~MoreText~SomeMoreText||||||F";
 		public void UnEscapesData()
 		{
 			// Arrange
-			const string content = @"MSH|^~\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||
-OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have September,\X000d\April\X0A\June,\X0A\and November.\X0A\When short February is done,\E\X0A\E\all the rest have\T\nbsp;31.\T\#39";
+			const string content =
+				"MSH|^~\\&|TestSys|432^testsys practice|TEST||201402171537||MDM^T02|121906|P|2.3.1||||||||\r\n" +
+				@"OBX|1|TX|PROBLEM FOCUSED^PROBLEM FOCUSED^test|1|\T\#39;Thirty days have September,\X000d\April\X0A\June,\X0A\and November.\X0A\When short February is done,\E\X0A\E\all the rest have\T\nbsp;31.\T\#39" +
+				"\r\n";
 
 			var parser = new PipeParser();
 			var msg = parser.Parse(content);

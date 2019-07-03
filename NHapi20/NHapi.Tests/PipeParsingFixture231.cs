@@ -12,8 +12,9 @@ namespace NHapi.Tests
 		[Fact]
 		public void ParseQRYR02()
 		{
-			string Message = @"MSH|^~\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3.1|
-QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
+			string Message =
+				"MSH|^~\\&|CohieCentral|COHIE|Clinical Data Provider|TCH|20060228155525||QRY^R02^QRY_R02|1|P|2.3.1|\r\n" +
+				"QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 
 			PipeParser Parser = new PipeParser();
 
@@ -28,12 +29,11 @@ QRD|20060228155525|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||";
 		[Fact]
 		public void ParseORMo01PIDSegment()
 		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
-PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
-PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
-ORC|NW|01444^00001|||||||||||L
-OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
-";
+			string Message = "MSH|^~\\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB\r\n" +
+			                 "PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443\r\n" +
+			                 "PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188\r\n" +
+			                 "ORC|NW|01444^00001|||||||||||L\r\n" +
+			                 "OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE\r\n";
 
 			PipeParser Parser = new PipeParser();
 
@@ -54,12 +54,11 @@ OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, AND
 		[Fact]
 		public void ParseORMo01ToXml()
 		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
-PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
-PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
-ORC|NW|01444^00001|||||||||||L
-OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
-";
+			string Message = "MSH|^~\\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB\r\n" +
+			                 "PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443\r\n" +
+			                 "PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188\r\n" +
+			                 "ORC|NW|01444^00001|||||||||||L\r\n" +
+			                 "OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE\r\n";
 
 			PipeParser Parser = new PipeParser();
 
@@ -81,12 +80,11 @@ OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, AND
 		[Fact]
 		public void ParseORRo02ToXml()
 		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200607100719||ORR^O02|ORDR|T|2.3.1|LAB
-PID|0001||3017864||HILBERT^MARY||19440823|F||W||||||||40244246
-PV1|0001|O|LW||||888883^DOCTOR, UNASSIGNED||||||||||888883|O|000000031540
-ORC|NA|00003^00001|F1492|||||||||888883
-OBR||00003^00001|F1492|RESPC^CULTURE RESPIRATORY ROUTINE|||||||L|||||||||F1492|||||||^ONCE&ONCE^^200607070600^200607070600^ROUTINE
-";
+			string Message = "MSH|^~\\&|INVISION|DHC|SUNQUEST LAB||200607100719||ORR^O02|ORDR|T|2.3.1|LAB\r\n" +
+			                 "PID|0001||3017864||HILBERT^MARY||19440823|F||W||||||||40244246\r\n" +
+			                 "PV1|0001|O|LW||||888883^DOCTOR, UNASSIGNED||||||||||888883|O|000000031540\r\n" +
+			                 "ORC|NA|00003^00001|F1492|||||||||888883\r\n" +
+			                 "OBR||00003^00001|F1492|RESPC^CULTURE RESPIRATORY ROUTINE|||||||L|||||||||F1492|||||||^ONCE&ONCE^^200607070600^200607070600^ROUTINE\r\n";
 
 			PipeParser Parser = new PipeParser();
 
@@ -109,30 +107,29 @@ OBR||00003^00001|F1492|RESPC^CULTURE RESPIRATORY ROUTINE|||||||L|||||||||F1492||
 		[Fact]
 		public void ParseORUr01LongToXml()
 		{
-			string Message = @"MSH|^~\$|LAB|DHC|LCR|DH|200511291403||ORU^R01|52780002432|P|2.3.1
-PID|0001|3013839|40206609||BARNES^TEST||19551005|F|||||||||||258452152
-OBR||00009^001|W442|CBC^CBC|||200509210520||||||||CBC^CBC|117564^STEEL||||||||DAH
-OBX|1|NM|WBC||20.0|k/uL|4.5-10.0|H|||Z
-OBX|1|TX|WBC|1|(Ref Range: 4 k/uL)|k/uL|4.5-10.0||||Z
-OBX|2|NM|RBC||4.00|M/uL|4.20-5.40|L|||Z
-OBX|2|TX|RBC|1|(Ref Range: 4 M/uL)|M/uL|4.20-5.40||||Z
-OBX|3|NM|HGB||12.0|g/dL|14.0-24.0|L|||Z
-OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z
-OBX|4|NM|HCT||41.0|%|37.0-47.0||||Z
-OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|37.0-47.0||||Z
-OBX|5|NM|MCV||80.9|fl|80.0-100.0||||Z
-OBX|5|TX|MCV|1|(Ref Range: 8 fl)|fl|80.0-100.0||||Z
-OBX|6|NM|MCH||31.0|pg|27.0-31.0||||Z
-OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z
-OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z
-OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z
-OBX|8|NM|RDW||19.0|%|11.5-14.5|H|||Z
-OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z
-OBX|9|NM|PLTC||45|k/uL|150-400|PL^Y|||Z
-OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z
-OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
-OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z
-";
+			string Message = "MSH|^~\\$|LAB|DHC|LCR|DH|200511291403||ORU^R01|52780002432|P|2.3.1\r\n" +
+			                 "PID|0001|3013839|40206609||BARNES^TEST||19551005|F|||||||||||258452152\r\n" +
+			                 "OBR||00009^001|W442|CBC^CBC|||200509210520||||||||CBC^CBC|117564^STEEL||||||||DAH\r\n" +
+			                 "OBX|1|NM|WBC||20.0|k/uL|4.5-10.0|H|||Z\r\n" +
+			                 "OBX|1|TX|WBC|1|(Ref Range: 4 k/uL)|k/uL|4.5-10.0||||Z\r\n" +
+			                 "OBX|2|NM|RBC||4.00|M/uL|4.20-5.40|L|||Z\r\n" +
+			                 "OBX|2|TX|RBC|1|(Ref Range: 4 M/uL)|M/uL|4.20-5.40||||Z\r\n" +
+			                 "OBX|3|NM|HGB||12.0|g/dL|14.0-24.0|L|||Z\r\n" +
+			                 "OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z\r\n" +
+			                 "OBX|4|NM|HCT||41.0|%|37.0-47.0||||Z\r\n" +
+			                 "OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|37.0-47.0||||Z\r\n" +
+			                 "OBX|5|NM|MCV||80.9|fl|80.0-100.0||||Z\r\n" +
+			                 "OBX|5|TX|MCV|1|(Ref Range: 8 fl)|fl|80.0-100.0||||Z\r\n" +
+			                 "OBX|6|NM|MCH||31.0|pg|27.0-31.0||||Z\r\n" +
+			                 "OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z\r\n" +
+			                 "OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z\r\n" +
+			                 "OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z\r\n" +
+			                 "OBX|8|NM|RDW||19.0|%|11.5-14.5|H|||Z\r\n" +
+			                 "OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z\r\n" +
+			                 "OBX|9|NM|PLTC||45|k/uL|150-400|PL^Y|||Z\r\n" +
+			                 "OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z\r\n" +
+			                 "OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z\r\n" +
+			                 "OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z\r\n";
 
 			PipeParser Parser = new PipeParser();
 
@@ -155,13 +152,13 @@ OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z
 		public void ParseORFR04()
 		{
 			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -177,13 +174,13 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		public void ParseORFR04ToXML()
 		{
 			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -207,14 +204,14 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		[Fact]
 		public void ParseORMwithOBXToXML()
 		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
-PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
-PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
-ORC|NW|01444^00001|||||||||||L
-OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
-OBX||NM|||999||||||
-OBX||NM|||999||||||
-OBX||NM|||999||||||";
+			string Message = "MSH|^~\\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB\r\n" +
+			                 "PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443\r\n" +
+			                 "PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188\r\n" +
+			                 "ORC|NW|01444^00001|||||||||||L\r\n" +
+			                 "OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE\r\n" +
+			                 "OBX||NM|||999||||||\r\n" +
+			                 "OBX||NM|||999||||||\r\n" +
+			                 "OBX||NM|||999||||||";
 
 			PipeParser Parser = new PipeParser();
 
@@ -238,15 +235,15 @@ OBX||NM|||999||||||";
 		[Fact]
 		public void ParseORMwithCompleteOBXToXML()
 		{
-			string Message = @"MSH|^~\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB
-PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443
-PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188
-ORC|NW|01444^00001|||||||||||L
-OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE
-OBX|1|TX|SDES||Blood, peripheral||||||Z
-OBX|2|TX|SREQ||LEFT ANTECUBITAL||||||Z
-OBX|3|TX|CULT||Beta hemolytic Streptococcus Group A||||||Z
-OBX|4|TX|CULT||Critical result(s) called to and verification ";
+			string Message = "MSH|^~\\&|INVISION|DHC|SUNQUEST LAB||200606191615||ORM^O01|ORDR|P|2.3.1|LAB\r\n" +
+			                 "PID|0001||3020956||TRAINONLYPOE^ONE||19770903|F||W||||||||40230443\r\n" +
+			                 "PV1|0001|I|MICU^W276^01||||045716^ABAZA, MONA M|||MED|||||||045716|F|000000030188\r\n" +
+			                 "ORC|NW|01444^00001|||||||||||L\r\n" +
+			                 "OBR||01444^00001||CAI^CALCIUM IONIZED|||200606191614||||L|||||045716^STEELE, ANDREW W|||||||||||00001&UNITS^ONCE&ONCE^000^200606191614^200606191614^ROUTINE\r\n" +
+			                 "OBX|1|TX|SDES||Blood, peripheral||||||Z\r\n" +
+			                 "OBX|2|TX|SREQ||LEFT ANTECUBITAL||||||Z\r\n" +
+			                 "OBX|3|TX|CULT||Beta hemolytic Streptococcus Group A||||||Z\r\n" +
+			                 "OBX|4|TX|CULT||Critical result(s) called to and verification ";
 			Message += "\"read-back\"";
 			Message += @" received from: Nu~||||||Z
 ";
@@ -292,13 +289,13 @@ OBX|4|TX|CULT||Critical result(s) called to and verification ";
 		public void ParseORFR04ToXmlNoOCR()
 		{
 			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -320,13 +317,13 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		public void ParseORFR04ToXmlNoNTE()
 		{
 			string Message =
-				@"MSH|^~\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|
-MSA|AA|123456789|
-QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||
-QRF||20050101000000||
-PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|
-OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|
-OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
+				"MSH|^~\\&|Query Result Locator|Query Facility Name|Query Application Name|ST ELSEWHERE HOSPITAL|20051024074506||ORF^R04|432|P|2.3.1|\r\n" +
+				"MSA|AA|123456789|\r\n" +
+				"QRD|20060228160421|R|I||||10^RD&Records&0126|38923^^^^^^^^&TCH|||\r\n" +
+				"QRF||20050101000000||\r\n" +
+				"PID|||38923^^^ST ELSEWHERE HOSPITAL Medical Record Numbers&              MEDIC              AL RECORD NUMBER&ST ELSEWHERE HOSPITAL^MR^ST ELSEWHERE HOSPITAL||Bombadill^Tom||19450605|M|||1&Main Street^^Littleton^CO^80122||^^^^^303^4376329^22|\r\n" +
+				"OBR|1|0015566|DH2211223|83036^HEMOGLOBIN A1C^^83036^HEMOGLOBIN A1C|||20040526094000|||||||20040526094000||J12345^JENS^JENNY^^^DR^MD^^^^^^^112233&TCH|||||          TP QUEST DIAGNOSTICS-TAMPA 4225 E. FOWLER AVE TAMPA          FL 33617|20030622070400|||F|\r\n" +
+				"OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 - 6.0|H|||F|||20040510094000|TP^^L|";
 
 			PipeParser Parser = new PipeParser();
 
@@ -347,81 +344,82 @@ OBX|1|NM|50026400^HEMOGLOBIN A1C^^50026400^HEMOGLOBIN A1C||12|^% TOTAL HGB|4.0 -
 		[Fact]
 		public void ParseORFR04FromDHTest()
 		{
-			string Message = @"MSH|^~\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609221408||ORF^R04||P|2.3.1
-MSA|AA|
-PID|2019877||2019877^^^DH^MR||LOPEZ1^JAMES^TRISTAN||19740804|M
-OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH
-OBX|1|NM|WBC||1.1|k/uL|5.0-16.0|L|||C
-OBX|1|TX|WBC|1|(Ref Range: 5 k/uL)|k/uL|5.0-16.0||||C
-OBX|1|TX|WBC||Result(s) called to and verification read-back received from:  NURSE NAN M~||||||C
-OBX|1|TX|WBC||ICU 13:39 11  19  05||||||C
-OBX|1|TX|WBC||Corrected on 11/29 AT 1337: Previously reported as: 1.1||||||C
-OBX|2|NM|RBC||3.99|M/uL|3.80-5.40||||Z
-OBX|2|TX|RBC|1|(Ref Range: 3 M/uL)|M/uL|3.80-5.40||||Z
-OBX|3|NM|HGB||13.0|g/dL|14.0-24.0|L|||Z
-OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z
-OBX|4|NM|HCT||40.0|%|31.0-43.0||||Z
-OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|31.0-43.0||||Z
-OBX|5|NM|MCV||80.0|fl|70.0-90.0||||Z
-OBX|5|TX|MCV|1|(Ref Range: 7 fl)|fl|70.0-90.0||||Z
-OBX|6|NM|MCH||32.0|pg|27.0-31.0|H|||Z
-OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z
-OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z
-OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z
-OBX|8|NM|RDW||17.0|%|11.5-14.5|H|||Z
-OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z
-OBX|9|NM|PLTC||2|k/uL|150-400|PL^Y|||Z
-OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z
-OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
-OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z
-OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH
-OBX|1|NM|WBC||1.1|k/uL|5.0-16.0|L|||C
-OBX|1|TX|WBC|1|(Ref Range: 5 k/uL)|k/uL|5.0-16.0||||C
-OBX|1|TX|WBC||Result(s) called to and verification read-back received from:  NURSE NAN M~||||||C
-OBX|1|TX|WBC||ICU 13:39 11  19  05||||||C
-OBX|1|TX|WBC||Corrected on 11/29 AT 1337: Previously reported as: 1.1||||||C
-OBX|2|NM|RBC||3.99|M/uL|3.80-5.40||||Z
-OBX|2|TX|RBC|1|(Ref Range: 3 M/uL)|M/uL|3.80-5.40||||Z
-OBX|3|NM|HGB||13.0|g/dL|14.0-24.0|L|||Z
-OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z
-OBX|4|NM|HCT||40.0|%|31.0-43.0||||Z
-OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|31.0-43.0||||Z
-OBX|5|NM|MCV||80.0|fl|70.0-90.0||||Z
-OBX|5|TX|MCV|1|(Ref Range: 7 fl)|fl|70.0-90.0||||Z
-OBX|6|NM|MCH||32.0|pg|27.0-31.0|H|||Z
-OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z
-OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z
-OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z
-OBX|8|NM|RDW||17.0|%|11.5-14.5|H|||Z
-OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z
-OBX|9|NM|PLTC||2|k/uL|150-400|PL^Y|||Z
-OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z
-OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
-OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z
-OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH
-OBX|1|NM|WBC||1.1|k/uL|5.0-16.0|L|||C
-OBX|1|TX|WBC|1|(Ref Range: 5 k/uL)|k/uL|5.0-16.0||||C
-OBX|1|TX|WBC||Result(s) called to and verification read-back received from:  NURSE NAN M~||||||C
-OBX|1|TX|WBC||ICU 13:39 11  19  05||||||C
-OBX|1|TX|WBC||Corrected on 11/29 AT 1337: Previously reported as: 1.1||||||C
-OBX|2|NM|RBC||3.99|M/uL|3.80-5.40||||Z
-OBX|2|TX|RBC|1|(Ref Range: 3 M/uL)|M/uL|3.80-5.40||||Z
-OBX|3|NM|HGB||13.0|g/dL|14.0-24.0|L|||Z
-OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z
-OBX|4|NM|HCT||40.0|%|31.0-43.0||||Z
-OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|31.0-43.0||||Z
-OBX|5|NM|MCV||80.0|fl|70.0-90.0||||Z
-OBX|5|TX|MCV|1|(Ref Range: 7 fl)|fl|70.0-90.0||||Z
-OBX|6|NM|MCH||32.0|pg|27.0-31.0|H|||Z
-OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z
-OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z
-OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z
-OBX|8|NM|RDW||17.0|%|11.5-14.5|H|||Z
-OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z
-OBX|9|NM|PLTC||2|k/uL|150-400|PL^Y|||Z
-OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z
-OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z
-OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
+			string Message =
+				"MSH|^~\\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609221408||ORF^R04||P|2.3.1\r\n" +
+				"MSA|AA|\r\n" +
+				"PID|2019877||2019877^^^DH^MR||LOPEZ1^JAMES^TRISTAN||19740804|M\r\n" +
+				"OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH\r\n" +
+				"OBX|1|NM|WBC||1.1|k/uL|5.0-16.0|L|||C\r\n" +
+				"OBX|1|TX|WBC|1|(Ref Range: 5 k/uL)|k/uL|5.0-16.0||||C\r\n" +
+				"OBX|1|TX|WBC||Result(s) called to and verification read-back received from:  NURSE NAN M~||||||C\r\n" +
+				"OBX|1|TX|WBC||ICU 13:39 11  19  05||||||C\r\n" +
+				"OBX|1|TX|WBC||Corrected on 11/29 AT 1337: Previously reported as: 1.1||||||C\r\n" +
+				"OBX|2|NM|RBC||3.99|M/uL|3.80-5.40||||Z\r\n" +
+				"OBX|2|TX|RBC|1|(Ref Range: 3 M/uL)|M/uL|3.80-5.40||||Z\r\n" +
+				"OBX|3|NM|HGB||13.0|g/dL|14.0-24.0|L|||Z\r\n" +
+				"OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z\r\n" +
+				"OBX|4|NM|HCT||40.0|%|31.0-43.0||||Z\r\n" +
+				"OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|31.0-43.0||||Z\r\n" +
+				"OBX|5|NM|MCV||80.0|fl|70.0-90.0||||Z\r\n" +
+				"OBX|5|TX|MCV|1|(Ref Range: 7 fl)|fl|70.0-90.0||||Z\r\n" +
+				"OBX|6|NM|MCH||32.0|pg|27.0-31.0|H|||Z\r\n" +
+				"OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z\r\n" +
+				"OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z\r\n" +
+				"OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z\r\n" +
+				"OBX|8|NM|RDW||17.0|%|11.5-14.5|H|||Z\r\n" +
+				"OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z\r\n" +
+				"OBX|9|NM|PLTC||2|k/uL|150-400|PL^Y|||Z\r\n" +
+				"OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z\r\n" +
+				"OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z\r\n" +
+				"OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z\r\n" +
+				"OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH\r\n" +
+				"OBX|1|NM|WBC||1.1|k/uL|5.0-16.0|L|||C\r\n" +
+				"OBX|1|TX|WBC|1|(Ref Range: 5 k/uL)|k/uL|5.0-16.0||||C\r\n" +
+				"OBX|1|TX|WBC||Result(s) called to and verification read-back received from:  NURSE NAN M~||||||C\r\n" +
+				"OBX|1|TX|WBC||ICU 13:39 11  19  05||||||C\r\n" +
+				"OBX|1|TX|WBC||Corrected on 11/29 AT 1337: Previously reported as: 1.1||||||C\r\n" +
+				"OBX|2|NM|RBC||3.99|M/uL|3.80-5.40||||Z\r\n" +
+				"OBX|2|TX|RBC|1|(Ref Range: 3 M/uL)|M/uL|3.80-5.40||||Z\r\n" +
+				"OBX|3|NM|HGB||13.0|g/dL|14.0-24.0|L|||Z\r\n" +
+				"OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z\r\n" +
+				"OBX|4|NM|HCT||40.0|%|31.0-43.0||||Z\r\n" +
+				"OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|31.0-43.0||||Z\r\n" +
+				"OBX|5|NM|MCV||80.0|fl|70.0-90.0||||Z\r\n" +
+				"OBX|5|TX|MCV|1|(Ref Range: 7 fl)|fl|70.0-90.0||||Z\r\n" +
+				"OBX|6|NM|MCH||32.0|pg|27.0-31.0|H|||Z\r\n" +
+				"OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z\r\n" +
+				"OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z\r\n" +
+				"OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z\r\n" +
+				"OBX|8|NM|RDW||17.0|%|11.5-14.5|H|||Z\r\n" +
+				"OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z\r\n" +
+				"OBX|9|NM|PLTC||2|k/uL|150-400|PL^Y|||Z\r\n" +
+				"OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z\r\n" +
+				"OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z\r\n" +
+				"OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z\r\n" +
+				"OBR||00677^001|M428|CBC^CBC|||200511071505||||||||CBC^CBC|045716^STEELE||||||||DAH\r\n" +
+				"OBX|1|NM|WBC||1.1|k/uL|5.0-16.0|L|||C\r\n" +
+				"OBX|1|TX|WBC|1|(Ref Range: 5 k/uL)|k/uL|5.0-16.0||||C\r\n" +
+				"OBX|1|TX|WBC||Result(s) called to and verification read-back received from:  NURSE NAN M~||||||C\r\n" +
+				"OBX|1|TX|WBC||ICU 13:39 11  19  05||||||C\r\n" +
+				"OBX|1|TX|WBC||Corrected on 11/29 AT 1337: Previously reported as: 1.1||||||C\r\n" +
+				"OBX|2|NM|RBC||3.99|M/uL|3.80-5.40||||Z\r\n" +
+				"OBX|2|TX|RBC|1|(Ref Range: 3 M/uL)|M/uL|3.80-5.40||||Z\r\n" +
+				"OBX|3|NM|HGB||13.0|g/dL|14.0-24.0|L|||Z\r\n" +
+				"OBX|3|TX|HGB|1|(Ref Range: 1 g/dL)|g/dL|14.0-24.0||||Z\r\n" +
+				"OBX|4|NM|HCT||40.0|%|31.0-43.0||||Z\r\n" +
+				"OBX|4|TX|HCT|1|(Ref Range: 3 %)|%|31.0-43.0||||Z\r\n" +
+				"OBX|5|NM|MCV||80.0|fl|70.0-90.0||||Z\r\n" +
+				"OBX|5|TX|MCV|1|(Ref Range: 7 fl)|fl|70.0-90.0||||Z\r\n" +
+				"OBX|6|NM|MCH||32.0|pg|27.0-31.0|H|||Z\r\n" +
+				"OBX|6|TX|MCH|1|(Ref Range: 2 pg)|pg|27.0-31.0||||Z\r\n" +
+				"OBX|7|NM|MCHC||32.0|g/dL|32.0-36.0||||Z\r\n" +
+				"OBX|7|TX|MCHC|1|(Ref Range: 3 g/dL)|g/dL|32.0-36.0||||Z\r\n" +
+				"OBX|8|NM|RDW||17.0|%|11.5-14.5|H|||Z\r\n" +
+				"OBX|8|TX|RDW|1|(Ref Range: 1 %)|%|11.5-14.5||||Z\r\n" +
+				"OBX|9|NM|PLTC||2|k/uL|150-400|PL^Y|||Z\r\n" +
+				"OBX|9|TX|PLTC|1|(Ref Range: 1 k/uL)|k/uL|150-400||||Z\r\n" +
+				"OBX|10|NM|MPV||10.0|fL|6.2-10.0||||Z\r\n" +
+				"OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
 
 			PipeParser Parser = new PipeParser();
 
@@ -534,26 +532,25 @@ OBX|10|TX|MPV|1|(Ref Range: 6 fL)|fL|6.2-10.0||||Z";
 		[Fact]
 		public void TestOBXDataTypes()
 		{
-			string message = @"MSH|^~\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.3.1|||
-MSA|CA|1
-QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||
-QRF|||||||||
-OBR|1|5149916^EPC|20050118113415533318^|E8600^ECG^^^ECG|||200501181134||||||Age: 17  yrs ~Criteria: C-HP708 ~|||||1||Zztesttwocorhoi|Results||||F||^^^^^Routine|||||||||200501181134|||||||||
-OBX|1|ST|:8601-7^ECG IMPRESSION|2|Normal sinus rhythm, rate  77     Normal P axis, PR, rate & rhythm ||||||F||1|200501181134||
-OBX|2|ST|:8625-6^PR INTERVAL|3|141||||||F||1|200501181134||
-OBX|3|ST|:8633-0^QRS DURATION|4|83||||||F||1|200501181134||
-OBX|4|ST|:8634-8^QT INTERVAL|5|358||||||F||1|200501181134||
-OBX|5|ST|:8636-3^QT INTERVAL CORRECTED|6|405||||||F||1|200501181134||
-OBX|6|ST|:8626-4^FRONTAL AXIS P|7|-1||||||F||1|200501181134||
-OBX|7|ST|:99003^FRONTAL AXIS INITIAL 40 MS|8|41||||||F||1|200501181134||
-OBX|8|ST|:8632-2^FRONTAL AXIS MEAN QRS|9|66||||||F||1|200501181134||
-OBX|9|ST|:99004^FRONTAL AXIS TERMINAL 40 MS|10|80||||||F||1|200501181134||
-OBX|10|ST|:99005^FRONTAL AXIS ST|11|36||||||F||1|200501181134||
-OBX|11|ST|:8638-9^FRONTAL AXIS T|12|40||||||F||1|200501181134||
-OBX|12|ST|:99006^ECG SEVERITY T|13|- NORMAL ECG - ||||||F||1|200501181134||
-OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419125100|PPKMG|PPJW^SMITH, Fred 
-QAK||OK||1|1|0
-";
+			string message = "MSH|^~\\&|EPIC|AIDI|||20070921152053|ITFCOHIEIN|ORF^R04^ORF_R04|297|P|2.3.1|||\r\n" +
+			                 "MSA|CA|1\r\n" +
+			                 "QRD|20060725141358|R|||||10^RD|1130851^^^^MRN|RES|||\r\n" +
+			                 "QRF|||||||||\r\n" +
+			                 "OBR|1|5149916^EPC|20050118113415533318^|E8600^ECG^^^ECG|||200501181134||||||Age: 17  yrs ~Criteria: C-HP708 ~|||||1||Zztesttwocorhoi|Results||||F||^^^^^Routine|||||||||200501181134|||||||||\r\n" +
+			                 "OBX|1|ST|:8601-7^ECG IMPRESSION|2|Normal sinus rhythm, rate  77     Normal P axis, PR, rate & rhythm ||||||F||1|200501181134||\r\n" +
+			                 "OBX|2|ST|:8625-6^PR INTERVAL|3|141||||||F||1|200501181134||\r\n" +
+			                 "OBX|3|ST|:8633-0^QRS DURATION|4|83||||||F||1|200501181134||\r\n" +
+			                 "OBX|4|ST|:8634-8^QT INTERVAL|5|358||||||F||1|200501181134||\r\n" +
+			                 "OBX|5|ST|:8636-3^QT INTERVAL CORRECTED|6|405||||||F||1|200501181134||\r\n" +
+			                 "OBX|6|ST|:8626-4^FRONTAL AXIS P|7|-1||||||F||1|200501181134||\r\n" +
+			                 "OBX|7|ST|:99003^FRONTAL AXIS INITIAL 40 MS|8|41||||||F||1|200501181134||\r\n" +
+			                 "OBX|8|ST|:8632-2^FRONTAL AXIS MEAN QRS|9|66||||||F||1|200501181134||\r\n" +
+			                 "OBX|9|ST|:99004^FRONTAL AXIS TERMINAL 40 MS|10|80||||||F||1|200501181134||\r\n" +
+			                 "OBX|10|ST|:99005^FRONTAL AXIS ST|11|36||||||F||1|200501181134||\r\n" +
+			                 "OBX|11|ST|:8638-9^FRONTAL AXIS T|12|40||||||F||1|200501181134||\r\n" +
+			                 "OBX|12|ST|:99006^ECG SEVERITY T|13|- NORMAL ECG - ||||||F||1|200501181134||\r\n" +
+			                 "OBX|13|DT|5315037^Start Date^Start Collection Dat^ABC||18APR06||||||F|||20060419125100|PPKMG|PPJW^SMITH, Fred \r\n" +
+			                 "QAK||OK||1|1|0\r\n";
 
 			PipeParser parser = new PipeParser();
 
@@ -570,27 +567,26 @@ QAK||OK||1|1|0
 
 		private static string GetDHPatient1111111()
 		{
-			return @"MSH|^~\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609271344||ORF^R04||P|2.3.1
-MSA|AA|
-PID|1111111||1111111^^^DH^MR||DUCK^DONALD^MIDDLENAME||19600909|M
-OBR||00002^001|4514754|RAD18100388^SHOULDER MIN 2 VIEW, LT|||200609212235|||M01|||||^|124420^CHEN^YENTING^^^^EM||||||200609220854|||||1^^^^^R^^ROUTINE|||||128652&MANUEL&MISTY D&&&&RAR
-OBX|4|TX|RAD0038GDT||~ATTENDING: DOCTOR,UNASSIGNED ORDERING: CHEN, YENTING~ADMITTING: DOCTOR,UNASSIGNED PCP:   ~Result for RAD 0038 - SHOULDER MIN 2 VIEW, LT - Sep 21 2006 10:35PM  ~ACC#.4514754~REASON FOR EXAM:   6C / EXT PN~REASON FOR CHANGE:  ~FINDINGS:  Left shoulder, four views:  Bones are in normal anatomic ~alignment.  No fracture, subluxation or dislocation.  Soft tissues are ~unremarkable. ~IMPRESSION:  No evidence of acute fracture. ~~~Transcribed By: M01: 09/22/2006    ~Images and interpretation reviewed and released by:~Read by: DR. MISTY D MANUEL Reading Time: 09/21/2006  ~Reviewing Physician: DR. ELIZABETH K DEE~Approved electronically by: DR.    ~||||||F|||||OBR||00032^001|W47215|GAS^Blood Gas, Arterial Laboratory|||200609202348||||||||GAS^Blood Gas, Arterial Laboratory|888883^DOCTOR||||||||DCC
-OBX|1|NM|PH||7.10||7.37-7.45|PL^Y|||Z
-OBX|1|TX|PH||(Ref Range: 7.37-7.45 )||7.37-7.45||||F
-OBX|1|TX|PH||Critical result(s) called to and verification 'read-back' received from:  KR~||||||Z
-OBX|1|TX|PH||ISTI FORD RRNA OR1 0005 MDM||||||F
-OBX|2|NM|PCO2||55|mm Hg|34-38|H|||F
-OBX|2|TX|PCO2||(Ref Range: 34-38 mm Hg)|mm Hg|34-38||||F
-OBX|3|NM|PO2||151|mm Hg|65-75|H|||F
-OBX|3|TX|PO2||(Ref Range: 65-75 mm Hg)|mm Hg|65-75||||F
-OBX|4|NM|HCO3||16|mmol/L|20-26|L|||F
-OBX|4|TX|HCO3||(Ref Range: 20-26 mmol/L)|mmol/L|20-26||||F
-OBX|5|TX|BE||Neg 13|mmol/L|||||F
-OBX|5|TX|BE||Base Excess Reference Range: -2.5 to 1.5||||||F
-OBX|6|NM|O2SAT||98|%|91-95|H|||F
-OBX|6|TX|O2SAT||(Ref Range: 91-95 %)|%|91-95||||F
-OBX|7|NM|FIO2||100.0||||||F
-";
+			return "MSH|^~\\&|Clinical Data Provider|DHHA|COHIECentral|COHIE|200609271344||ORF^R04||P|2.3.1\r\n" +
+			       "MSA|AA|\r\n" +
+			       "PID|1111111||1111111^^^DH^MR||DUCK^DONALD^MIDDLENAME||19600909|M\r\n" +
+			       "OBR||00002^001|4514754|RAD18100388^SHOULDER MIN 2 VIEW, LT|||200609212235|||M01|||||^|124420^CHEN^YENTING^^^^EM||||||200609220854|||||1^^^^^R^^ROUTINE|||||128652&MANUEL&MISTY D&&&&RAR\r\n" +
+			       "OBX|4|TX|RAD0038GDT||~ATTENDING: DOCTOR,UNASSIGNED ORDERING: CHEN, YENTING~ADMITTING: DOCTOR,UNASSIGNED PCP:   ~Result for RAD 0038 - SHOULDER MIN 2 VIEW, LT - Sep 21 2006 10:35PM  ~ACC#.4514754~REASON FOR EXAM:   6C / EXT PN~REASON FOR CHANGE:  ~FINDINGS:  Left shoulder, four views:  Bones are in normal anatomic ~alignment.  No fracture, subluxation or dislocation.  Soft tissues are ~unremarkable. ~IMPRESSION:  No evidence of acute fracture. ~~~Transcribed By: M01: 09/22/2006    ~Images and interpretation reviewed and released by:~Read by: DR. MISTY D MANUEL Reading Time: 09/21/2006  ~Reviewing Physician: DR. ELIZABETH K DEE~Approved electronically by: DR.    ~||||||F|||||OBR||00032^001|W47215|GAS^Blood Gas, Arterial Laboratory|||200609202348||||||||GAS^Blood Gas, Arterial Laboratory|888883^DOCTOR||||||||DCC\r\n" +
+			       "OBX|1|NM|PH||7.10||7.37-7.45|PL^Y|||Z\r\n" +
+			       "OBX|1|TX|PH||(Ref Range: 7.37-7.45 )||7.37-7.45||||F\r\n" +
+			       "OBX|1|TX|PH||Critical result(s) called to and verification 'read-back' received from:  KR~||||||Z\r\n" +
+			       "OBX|1|TX|PH||ISTI FORD RRNA OR1 0005 MDM||||||F\r\n" +
+			       "OBX|2|NM|PCO2||55|mm Hg|34-38|H|||F\r\n" +
+			       "OBX|2|TX|PCO2||(Ref Range: 34-38 mm Hg)|mm Hg|34-38||||F\r\n" +
+			       "OBX|3|NM|PO2||151|mm Hg|65-75|H|||F\r\n" +
+			       "OBX|3|TX|PO2||(Ref Range: 65-75 mm Hg)|mm Hg|65-75||||F\r\n" +
+			       "OBX|4|NM|HCO3||16|mmol/L|20-26|L|||F\r\n" +
+			       "OBX|4|TX|HCO3||(Ref Range: 20-26 mmol/L)|mmol/L|20-26||||F\r\n" +
+			       "OBX|5|TX|BE||Neg 13|mmol/L|||||F\r\n" +
+			       "OBX|5|TX|BE||Base Excess Reference Range: -2.5 to 1.5||||||F\r\n" +
+			       "OBX|6|NM|O2SAT||98|%|91-95|H|||F\r\n" +
+			       "OBX|6|TX|O2SAT||(Ref Range: 91-95 %)|%|91-95||||F\r\n" +
+			       "OBX|7|NM|FIO2||100.0||||||F\r\n";
 		}
 	}
 }
