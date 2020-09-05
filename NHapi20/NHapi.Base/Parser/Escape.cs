@@ -38,10 +38,8 @@ namespace NHapi.Base.Parser
     public class Escape
     {
         //This items are are to not be escaped when building the message
-        private static string[] NON_ESCAPE_CHARACTERS = new string[] { @"\.", @"\X", @"\Z", @"\C", @"\M", @"\H", @"\N", @"\S" };
         private static string[] SINGLE_CHAR_NON_ESCAPE_CHARACTERS = new string[] { @"H", @"N", @"S", @"T", @"R", @"F", @"E" };
         private static string[] MULTI_CHAR_NON_ESCAPE_CHARACTERS = new string[] { @"X", @"Z", @"C", @"M" };
-        private static Hashtable _nonEscapeCharacterMapping = new Hashtable();
         private static Hashtable _singleCharNonEscapeCharacterMapping = new Hashtable();
         private static Hashtable _multiCharNonEscapeCharacterMapping = new Hashtable();
         private static Hashtable variousEncChars = new Hashtable(5);
@@ -49,10 +47,6 @@ namespace NHapi.Base.Parser
 
         static Escape()
         {
-            foreach (string element in NON_ESCAPE_CHARACTERS)
-            {
-                _nonEscapeCharacterMapping.Add(element, element);
-            }
             foreach (string element in SINGLE_CHAR_NON_ESCAPE_CHARACTERS)
             {
                 _singleCharNonEscapeCharacterMapping.Add(element, element);
@@ -127,7 +121,13 @@ namespace NHapi.Base.Parser
                             }
                             else if (nextEscapeChar != -1)
                             {
-                                if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
+                                // FT escapes are multi-character sequences starting with '.'
+                                if (textAsChar[i + 1] == '.')
+                                {
+                                    encodeCharacter = false;
+                                    isEncodingSpecialCharacterSequence = true;
+                                }
+                                else if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
                                 {
                                     // Contains /#xxyyzz..nn/ from the main string.
                                     string potentialEscapeSequence = text.Substring(i, nextEscapeChar - i + 1);

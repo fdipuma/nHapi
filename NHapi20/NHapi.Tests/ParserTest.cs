@@ -154,7 +154,7 @@ namespace NHapi.Tests
 			string[] fields = segs[2].Split('|');
 			string data = fields[5];
 
-			Assert.Equal(@"Th\T\is\E\.br\E\is\E\.br\E\A T\F\est\E\", data);
+			Assert.Equal(@"Th\T\is\.br\is\.br\A T\F\est\E\", data);
 		}
 
 		[Fact]
