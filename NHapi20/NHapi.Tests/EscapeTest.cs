@@ -36,14 +36,28 @@ namespace NHapi.Tests
 			{@"\ZAB\", @"\E\ZAB\E\"}, // .. but Z sequences are not supported
 
 			// FT commands should not be escaped
-			{@"\.br\", @"\.br\"},
 			{@"\.sp\", @"\.sp\"},
+			{@"\.sp4\", @"\.sp4\"},
 			{@"\.sp+4\", @"\.sp+4\"},
+			{@"\.br\", @"\.br\"},
 			{@"\.fi\", @"\.fi\"},
 			{@"\.nf\", @"\.nf\"},
+			{@"\.in4\", @"\.in4\"},
 			{@"\.in+4\", @"\.in+4\"},
+			{@"\.in-4\", @"\.in-4\"},
+			{@"\.ti4\", @"\.ti4\"},
+			{@"\.ti+4\", @"\.ti+4\"},
 			{@"\.ti-4\", @"\.ti-4\"},
+			{@"\.sk8\", @"\.sk8\"},
+			{@"\.sk+8\", @"\.sk+8\"},
 			{@"\.ce\", @"\.ce\"},
+
+			// invalid FT commands should be escaped
+			{@"\.sp-4\", @"\E\.sp-4\E\"},
+			{@"\.spA\", @"\E\.spA\E\"},
+			{@"\.in+d\", @"\E\.in+d\E\"},
+			{@"\.ti-d\", @"\E\.ti-d\E\"},
+			{@"\.sk\", @"\E\.sk\E\"},
 
 			// unclosed escapes should be escaped
 			{@".br\", @".br\E\"},
@@ -54,7 +68,6 @@ namespace NHapi.Tests
 			{@".in+4\", @".in+4\E\"},
 			{@".ti-4\", @".ti-4\E\"},
 			{@".ce\", @".ce\E\"},
-
 			{@"\.br", @"\E\.br"},
 			{@"\.sp", @"\E\.sp"},
 			{@"\.sp+4", @"\E\.sp+4"},

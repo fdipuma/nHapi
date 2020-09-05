@@ -24,6 +24,7 @@ using System;
 using System.Collections.Specialized;
 using System.Collections;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Linq;
 
 namespace NHapi.Base.Parser
@@ -73,6 +74,10 @@ namespace NHapi.Base.Parser
             return ht;
         }
 
+        static Regex formattedTextSpaceCommand = new Regex(@"^\.sp(\+?\d+)?$", RegexOptions.Compiled);
+        static Regex formattedTextIndentCommand = new Regex(@"^\.in(\+|-)?\d+$", RegexOptions.Compiled);
+        static Regex formattedTextTemporaryIndentCommand = new Regex(@"^\.ti(\+|-)?\d+$", RegexOptions.Compiled);
+        static Regex formattedTextSkipCommand = new Regex(@"^\.sk(\+|-)?\d+$", RegexOptions.Compiled);
 
         /// <summary>
         /// Escape string
@@ -124,8 +129,19 @@ namespace NHapi.Base.Parser
                                 // FT escapes are multi-character sequences starting with '.'
                                 if (textAsChar[i + 1] == '.')
                                 {
-                                    encodeCharacter = false;
-                                    isEncodingSpecialCharacterSequence = true;
+                                    var potentialEscapeSequence = text.Substring(i + 1, nextEscapeChar - i - 1);
+                                    if (potentialEscapeSequence == ".br" ||
+                                        potentialEscapeSequence == ".fi" || 
+                                        potentialEscapeSequence == ".nf" ||
+                                        potentialEscapeSequence == ".ce" ||
+                                        formattedTextSpaceCommand.IsMatch(potentialEscapeSequence) ||
+                                        formattedTextIndentCommand.IsMatch(potentialEscapeSequence) ||
+                                        formattedTextTemporaryIndentCommand.IsMatch(potentialEscapeSequence) ||
+                                        formattedTextSkipCommand.IsMatch(potentialEscapeSequence))
+                                    {
+                                        encodeCharacter = false;
+                                        isEncodingSpecialCharacterSequence = true;
+                                    }
                                 }
                                 else if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
                                 {
