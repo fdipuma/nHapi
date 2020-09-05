@@ -30,9 +30,7 @@ using System.Linq;
 namespace NHapi.Base.Parser
 {
     /// <summary> Handles "escaping" and "unescaping" of text according to the HL7 escape sequence rules
-    /// defined in section 2.10 of the standard (version 2.4).  Currently, escape sequences for 
-    /// multiple character sets are unsupported.  The highlighting, hexademical, and locally 
-    /// defined escape sequences are also unsupported.  
+    /// defined in section 2.10 of the standard (version 2.4).  The locally defined escape sequences are also unsupported.
     /// </summary>
     /// <author>  Bryan Tripp
     /// </author>
@@ -45,6 +43,11 @@ namespace NHapi.Base.Parser
         private static Hashtable _multiCharNonEscapeCharacterMapping = new Hashtable();
         private static Hashtable variousEncChars = new Hashtable(5);
         private static char[] HexDigits = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+
+        private static Regex formattedTextSpaceCommand = new Regex(@"^\.sp(\+?\d+)?$", RegexOptions.Compiled);
+        private static Regex formattedTextIndentCommand = new Regex(@"^\.in(\+|-)?\d+$", RegexOptions.Compiled);
+        private static Regex formattedTextTemporaryIndentCommand = new Regex(@"^\.ti(\+|-)?\d+$", RegexOptions.Compiled);
+        private static Regex formattedTextSkipCommand = new Regex(@"^\.sk(\+|-)?\d+$", RegexOptions.Compiled);
 
         static Escape()
         {
@@ -73,11 +76,6 @@ namespace NHapi.Base.Parser
             }
             return ht;
         }
-
-        static Regex formattedTextSpaceCommand = new Regex(@"^\.sp(\+?\d+)?$", RegexOptions.Compiled);
-        static Regex formattedTextIndentCommand = new Regex(@"^\.in(\+|-)?\d+$", RegexOptions.Compiled);
-        static Regex formattedTextTemporaryIndentCommand = new Regex(@"^\.ti(\+|-)?\d+$", RegexOptions.Compiled);
-        static Regex formattedTextSkipCommand = new Regex(@"^\.sk(\+|-)?\d+$", RegexOptions.Compiled);
 
         /// <summary>
         /// Escape string
