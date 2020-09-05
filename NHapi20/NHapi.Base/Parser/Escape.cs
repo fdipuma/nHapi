@@ -24,35 +24,33 @@ using System;
 using System.Collections.Specialized;
 using System.Collections;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Linq;
 
 namespace NHapi.Base.Parser
 {
     /// <summary> Handles "escaping" and "unescaping" of text according to the HL7 escape sequence rules
-    /// defined in section 2.10 of the standard (version 2.4).  Currently, escape sequences for 
-    /// multiple character sets are unsupported.  The highlighting, hexademical, and locally 
-    /// defined escape sequences are also unsupported.  
+    /// defined in section 2.10 of the standard (version 2.4).  The locally defined escape sequences are also unsupported.
     /// </summary>
     /// <author>  Bryan Tripp
     /// </author>
     public class Escape
     {
         //This items are are to not be escaped when building the message
-        private static string[] NON_ESCAPE_CHARACTERS = new string[] { @"\.", @"\X", @"\Z", @"\C", @"\M", @"\H", @"\N", @"\S" };
         private static string[] SINGLE_CHAR_NON_ESCAPE_CHARACTERS = new string[] { @"H", @"N", @"S", @"T", @"R", @"F", @"E" };
         private static string[] MULTI_CHAR_NON_ESCAPE_CHARACTERS = new string[] { @"X", @"Z", @"C", @"M" };
-        private static Hashtable _nonEscapeCharacterMapping = new Hashtable();
         private static Hashtable _singleCharNonEscapeCharacterMapping = new Hashtable();
         private static Hashtable _multiCharNonEscapeCharacterMapping = new Hashtable();
         private static Hashtable variousEncChars = new Hashtable(5);
         private static char[] HexDigits = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
+        private static Regex formattedTextSpaceCommand = new Regex(@"^\.sp(\+?\d+)?$", RegexOptions.Compiled);
+        private static Regex formattedTextIndentCommand = new Regex(@"^\.in(\+|-)?\d+$", RegexOptions.Compiled);
+        private static Regex formattedTextTemporaryIndentCommand = new Regex(@"^\.ti(\+|-)?\d+$", RegexOptions.Compiled);
+        private static Regex formattedTextSkipCommand = new Regex(@"^\.sk(\+|-)?\d+$", RegexOptions.Compiled);
+
         static Escape()
         {
-            foreach (string element in NON_ESCAPE_CHARACTERS)
-            {
-                _nonEscapeCharacterMapping.Add(element, element);
-            }
             foreach (string element in SINGLE_CHAR_NON_ESCAPE_CHARACTERS)
             {
                 _singleCharNonEscapeCharacterMapping.Add(element, element);
@@ -78,7 +76,6 @@ namespace NHapi.Base.Parser
             }
             return ht;
         }
-
 
         /// <summary>
         /// Escape string
@@ -127,7 +124,24 @@ namespace NHapi.Base.Parser
                             }
                             else if (nextEscapeChar != -1)
                             {
-                                if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
+                                // FT escapes are multi-character sequences starting with '.'
+                                if (textAsChar[i + 1] == '.')
+                                {
+                                    var potentialEscapeSequence = text.Substring(i + 1, nextEscapeChar - i - 1);
+                                    if (potentialEscapeSequence == ".br" ||
+                                        potentialEscapeSequence == ".fi" || 
+                                        potentialEscapeSequence == ".nf" ||
+                                        potentialEscapeSequence == ".ce" ||
+                                        formattedTextSpaceCommand.IsMatch(potentialEscapeSequence) ||
+                                        formattedTextIndentCommand.IsMatch(potentialEscapeSequence) ||
+                                        formattedTextTemporaryIndentCommand.IsMatch(potentialEscapeSequence) ||
+                                        formattedTextSkipCommand.IsMatch(potentialEscapeSequence))
+                                    {
+                                        encodeCharacter = false;
+                                        isEncodingSpecialCharacterSequence = true;
+                                    }
+                                }
+                                else if (_multiCharNonEscapeCharacterMapping[textAsChar[i + 1].ToString()] != null)
                                 {
                                     // Contains /#xxyyzz..nn/ from the main string.
                                     string potentialEscapeSequence = text.Substring(i, nextEscapeChar - i + 1);
